@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import Order, { OrderDocument } from "../models/Order";
+import Order from "../models/Order";
 import orderServices from "../services/orders";
 
 export const createOrder = async (
