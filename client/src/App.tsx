@@ -30,6 +30,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
+        {/* using this to get albums data from spotify */}
         {/* <SearchSpotify /> */}
         <Navbar />
         <Routes>
