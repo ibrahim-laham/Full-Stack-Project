@@ -1,7 +1,7 @@
-import User, { UserDocument } from "../models/users";
+import User, { UserDocument } from "../models/user";
 
 const createUserService = async (user: UserDocument): Promise<UserDocument> => {
-  return user.save();
+  return await user.save();
 };
 
 export default {createUserService};

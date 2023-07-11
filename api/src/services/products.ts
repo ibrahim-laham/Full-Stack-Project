@@ -3,17 +3,17 @@ import Product, { ProductDocument } from "../models/Product";
 const createProductService = async (
   product: ProductDocument
 ): Promise<ProductDocument> => {
-  return product.save();
+  return await product.save();
 };
 
 const getAllProductsService = async (): Promise<ProductDocument[]> => {
-  return Product.find();
+  return await Product.find();
 };
 
 const getProductByTitleService = async (
   productTitle: string
 ): Promise<ProductDocument | {}> => {
-  return Product.find({ title: productTitle });
+  return await Product.find({ title: productTitle });
 };
 
 const updateProductService = async (productId: string, updateValue: string) => {

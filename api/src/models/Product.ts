@@ -7,10 +7,10 @@ export type ProductDocument = Document & {
   price: number;
   image: string;
   link: string;
-  releaseDate: string;
+  releaseDate: Date;
 }
 
-const productSchema = new mongoose.Schema({
+export const productSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
