@@ -61,15 +61,15 @@ export const loginWithPassword = async (
   }
 };
 
-export const updateUserPassword = async (
+export const updateUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const userId = req.params.userId;
-    const newPassword = req.body.password;
-    const user = await usersServices.updateUserPassword(userId, newPassword);
+    const update = req.body;
+    const user = await usersServices.updateUser(userId, update);
 
     res.status(200).json({
       message: "updated user password",

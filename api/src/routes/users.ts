@@ -4,7 +4,7 @@ import passport from "passport";
 import {
   createUser,
   loginWithPassword,
-  updateUserPassword,
+  updateUser,
 } from "../controllers/users";
 
 const router = Router();
@@ -14,7 +14,7 @@ router.post("/login", loginWithPassword);
 router.put(
   "/:userId",
   passport.authenticate("jwt", { session: false }),
-  updateUserPassword
+  updateUser
 );
 
 export default router;
