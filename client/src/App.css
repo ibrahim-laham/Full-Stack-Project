@@ -1,1 +1,13 @@
 
+.landingImage {
+  background-image: url("./assets/thisone3.jpg");
+  height: 91vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  position: relative;
+}

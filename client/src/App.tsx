@@ -1,25 +1,51 @@
 import "./App.css";
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/NavBar/Navbar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AlbumsPage from "./pages/AlbumsPage";
 
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    sleekDark: Palette['primary'];
+    goldRush: Palette['primary'];
+  }
+
+  // allow configuration using `createTheme`
+  interface PaletteOptions {
+    sleekDark?: PaletteOptions['primary'];
+    goldRush?: Palette['primary'];
+  }
+}
+
+// @babel-ignore-comment-in-output Update the Button's color prop options
+declare module '@mui/material/AppBar' {
+  interface AppBarPropsColorOverrides {
+    sleekDark: true;
+    goldRush: true;
+  }
+}
+
 const theme = createTheme({
   palette: {
     primary: {
-      light: "#757ce8",
-      main: "#3f50b5",
-      dark: "#002884",
-      contrastText: "#fff",
+      main: "#ad0b0b",
     },
     secondary: {
-      light: "#ff7961",
-      main: "#f44336",
-      dark: "#ba000d",
-      contrastText: "#000",
+      main: "#6c1aa0",
     },
+    sleekDark: {
+      main: "#270534",
+      contrastText: '#fff',
+    },
+    goldRush: {
+      light: "#ca9b38",
+      main: "#c08220",
+      dark: "#b36916",
+      contrastText: '#fff',
+    }
   },
   typography: {
     fontFamily: ["Signika", "sans-serif"].join(","),
@@ -29,7 +55,7 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
+      <div className="App" >
         {/* using this to get albums data from spotify */}
         {/* <SearchSpotify /> */}
         <Navbar />
