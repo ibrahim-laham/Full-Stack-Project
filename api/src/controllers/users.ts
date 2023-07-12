@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-import userServices from "../services/users";
+import usersServices from "../services/users";
 import User from "../models/user";
 
 export const createUser = async (
@@ -15,10 +17,63 @@ export const createUser = async (
       password: req.body.password,
     });
 
-    const newUser = await userServices.createUserService(user);
+    const newUser = await usersServices.createUserService(user);
     res.status(200).json({
       message: "create user",
       users: newUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+dotenv.config();
+
+const JWT_SECRET = process.env.JWT_SECRET as string;
+
+export const loginWithPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userEmail = await req.body.email;
+    const userData = await usersServices.findUserByEmail(userEmail);
+    if (!userData) {
+      return res
+        .status(403)
+        .json({ message: "could not find user in the database" });
+    }
+
+    const token = jwt.sign(
+      {
+        email: userData.email,
+        nickName: userData.nickName,
+        _id: userData._id,
+      },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.status(200).json({ userData, token });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUserPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.params.userId;
+    const newPassword = req.body.password;
+    const user = await usersServices.updateUserPassword(userId, newPassword);
+
+    res.status(200).json({
+      message: "updated user password",
+      user: user,
     });
   } catch (error) {
     next(error);
