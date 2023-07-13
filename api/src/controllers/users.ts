@@ -1,9 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
 
 import usersServices from "../services/users";
 import User from "../models/User";
+import { UnauthorizedError } from "../helpers/apiError";
 
 export const createUser = async (
   req: Request,
@@ -11,10 +13,15 @@ export const createUser = async (
   next: NextFunction
 ) => {
   try {
+    const { nickName, email, password } = req.body;
+
+    const salt = await bcrypt.genSalt(12);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const user = new User({
-      nickName: req.body.nickName,
-      email: req.body.email,
-      password: req.body.password,
+      nickName: nickName,
+      email: email,
+      password: hashedPassword,
     });
 
     const newUser = await usersServices.createUserService(user);
@@ -37,12 +44,18 @@ export const loginWithPassword = async (
   next: NextFunction
 ) => {
   try {
-    const userEmail = await req.body.email;
-    const userData = await usersServices.findUserByEmail(userEmail);
+    const { email, password } = req.body;
+    const userData = await usersServices.findUserByEmail(email);
     if (!userData) {
       return res
         .status(403)
-        .json({ message: "could not find user in the database" });
+        .json({ message: "email or password are incorrect" });
+    }
+    const hashedPassword = userData.password;
+    const isCorrectPassword = await bcrypt.compare(password, hashedPassword);
+
+    if (!isCorrectPassword) {
+      throw new UnauthorizedError("email or password are incorrect");
     }
 
     const token = jwt.sign(
