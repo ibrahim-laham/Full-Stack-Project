@@ -36,9 +36,9 @@ export default function Navbar() {
   };
 
   return (
-    <AppBar position="static" color="primary">
+    <AppBar position="static" sx={{backgroundColor: "sleekDark"}}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters >
           <Logo />
           <MenuXs
             handleOpenNavMenu={handleOpenNavMenu}

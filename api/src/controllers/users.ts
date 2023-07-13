@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 import usersServices from "../services/users";
-import User from "../models/user";
+import User from "../models/User";
 
 export const createUser = async (
   req: Request,
