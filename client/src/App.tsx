@@ -7,6 +7,9 @@ import HomePage from "./pages/HomePage";
 import AlbumsPage from "./pages/AlbumsPage";
 import { createContext, useMemo, useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Stack from "@mui/material/Stack";
+import AlbumDetails from "./pages/AlbumDetails";
+import SearchSpotify from "./components/DevTools/SearchSpotify";
 
 type PaletteMode = "light" | "dark";
 declare module "@mui/material/styles" {
@@ -27,6 +30,7 @@ declare module "@mui/material/AppBar" {
     goldRush: true;
   }
 }
+
 
 const getDesignTokens = (mode: PaletteMode) => ({
   palette: {
@@ -50,14 +54,21 @@ const getDesignTokens = (mode: PaletteMode) => ({
             dark: "#b36916",
             contrastText: "#fff",
           },
+          background: {
+            paper: "#FFFFFF",
+            default: "#FFFFFF",
+          },
+          contrastThreshold: 4.5,
         }
       : {
           // palette values for dark mode
           primary: {
-            main: "#ad0b0b",
+            main: "#870707",
+            dark: "#6d0808",
           },
           secondary: {
             main: "#6c1aa0",
+            dark: "#2F0A47",
           },
           sleekDark: {
             main: "#270534",
@@ -70,9 +81,9 @@ const getDesignTokens = (mode: PaletteMode) => ({
             contrastText: "#fff",
           },
           background: {
-            paper: "#270534",
-            default: "#270534",
+            default: "rgba(0,0,0,0.64)",
           },
+          contrastThreshold: 4.5,
         }),
   },
   typography: {
@@ -83,20 +94,20 @@ const getDesignTokens = (mode: PaletteMode) => ({
 function App() {
   const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  
 
-  const [mode, setMode] = useState<PaletteMode>("light");
+  const [mode, setMode] = useState<PaletteMode>("dark");
   const colorMode = useMemo(
     () => ({
       // The dark mode switch would invoke this method
       toggleColorMode: () => {
-        setMode(() => (prefersDarkMode ? "dark" : "light"));
+        
         setMode((prevMode: PaletteMode) =>
           prevMode === "light" ? "dark" : "light"
         );
       },
     }),
-    [prefersDarkMode]
+    []
   );
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
@@ -105,13 +116,15 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <div className="App">
-          {/* using this to get albums data from spotify */}
-          {/* <SearchSpotify /> */}
-          <Navbar mode={mode} setMode={setMode} />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/albums" element={<AlbumsPage />} />
-          </Routes>
+          <Stack>
+            <Navbar mode={mode} setMode={setMode} />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/albums" element={<AlbumsPage />} />
+              <Route path="/albums/:id" element={<AlbumDetails/> } />
+              <Route path="/devtool" element={<SearchSpotify/>}/>
+            </Routes>
+          </Stack>
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>

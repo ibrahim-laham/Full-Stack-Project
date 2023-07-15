@@ -2,7 +2,10 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-
+import AlbumRoundedIcon from "@mui/icons-material/AlbumRounded";
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import CallRoundedIcon from '@mui/icons-material/CallRounded';
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 
 type Prop = {
   handleCloseNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
@@ -22,17 +25,23 @@ export default function NavItems({ pages, handleCloseNavMenu }: Prop) {
     >
       {pages.map((page) => (
         <Link to={`${page.path}`} style={{ textDecoration: "none" }}>
-          <Button
-            key={page.name}
-            onClick={handleCloseNavMenu}
-            sx={{
-              color: "white",
-              display: "block",
-              fontWeight: "700",
-            }}
-          >
-            <Typography variant="h6">{page.name}</Typography>
-          </Button>
+            <Button
+              key={page.name}
+              onClick={handleCloseNavMenu}
+              variant="contained"
+              sx={{
+                color: "white",
+                display: "flex",
+                fontWeight: "700",
+                
+              }}
+            >
+              {page.name === "Albums" ? <AlbumRoundedIcon sx={{marginRight: "3px"}} /> : null}
+              {page.name === "Home" ? <HomeRoundedIcon sx={{marginRight: "3px"}}/> : null}
+              {page.name === "Contact" ? <CallRoundedIcon sx={{marginRight: "3px"}}/> : null}
+              {page.name === "Login" ? <LoginRoundedIcon sx={{marginRight: "3px"}}/> : null}
+              <Typography variant="h6">{page.name}</Typography>
+            </Button>
         </Link>
       ))}
     </Box>

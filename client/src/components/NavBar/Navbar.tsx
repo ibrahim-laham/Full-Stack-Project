@@ -21,8 +21,8 @@ type Prop = {
 const pages = [
   { name: "Albums", path: "/albums" },
   { name: "Home", path: "/" },
-  { name: "Contact Us", path: "/" },
-  { name: "login", path: "/" },
+  { name: "Contact", path: "/" },
+  { name: "Login", path: "/" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -73,12 +73,12 @@ export default function Navbar({ mode, setMode }: Prop) {
         "& + .MuiSwitch-track": {
           opacity: 1,
           backgroundColor:
-            theme.palette.mode === "dark" ? "#8796A5" : "#aab4be",
+            theme.palette.mode === "dark" ? "#FFFFFF" : "#aab4be",
         },
       },
     },
     "& .MuiSwitch-thumb": {
-      backgroundColor: theme.palette.mode === "dark" ? "#003892" : "#001e3c",
+      backgroundColor: theme.palette.mode === "dark" ? "#6d0808" : "#48126a",
       width: 32,
       height: 32,
       "&:before": {
@@ -103,7 +103,7 @@ export default function Navbar({ mode, setMode }: Prop) {
   }));
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "primary.main" }}>
+    <AppBar position="static" sx={{ backgroundColor: "primary.main", padding: "4px"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo />

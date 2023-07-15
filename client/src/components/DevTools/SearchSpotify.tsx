@@ -51,7 +51,7 @@ export default function SearchSpotify() {
   };
 
   return (
-    <div style={{ visibility: "hidden" }}>
+    <div>
       <header>
         <h1> Spotify</h1>
         {!token ? (
