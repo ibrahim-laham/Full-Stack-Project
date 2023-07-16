@@ -1,3 +1,4 @@
+import { NotFoundError } from "../helpers/apiError";
 import Product, { ProductDocument } from "../models/Product";
 
 const createProductService = async (
@@ -13,22 +14,27 @@ const getAllProductsService = async (): Promise<ProductDocument[]> => {
 const getProductByTitleService = async (
   productTitle: string
 ): Promise<ProductDocument | {}> => {
-  return await Product.find({ title: productTitle });
-};
-
-const updateProductService = async (productId: string, updateValue: string) => {
-  try {
-   await Product.updateMany(
-      { _id: productId },
-      { $set: { title: updateValue } }
-    );
-  } catch (e) {
-    console.log(e);
+  const product = await Product.find({ title: productTitle });
+  if (!product) {
+    throw new NotFoundError(`the product does not exist with the title ${productTitle}`)
   }
+  return product;
 };
 
-const deleteProductByTitleService = async (productTitle: string) => {
-  await Product.deleteMany({title: productTitle});
+const updateProductService = async (productId: string, update: Partial<ProductDocument> ) => {
+ const updatedProduct = await Product.findByIdAndUpdate(productId, update, {new: true})
+ if (!updatedProduct) {
+  throw new NotFoundError(`could not find the product with id ${productId}`)
+ }
+ return updatedProduct;
+};
+
+const deleteProductByTitleService = async (productId: string) => {
+ const deleteProduct = await Product.findByIdAndDelete(productId);
+ if  (!deleteProduct) {
+  throw new NotFoundError(`could not find the product with the id ${productId}`)
+ }
+ return deleteProduct;
 }
 
 export default {

@@ -71,10 +71,10 @@ export const updateProduct = async (
 ) => {
   try {
     const productId = req.params.id;
-    const updateValue: string = req.body.title;
+    const update = req.body;
     const product = await productServices.updateProductService(
       productId,
-      updateValue
+      update
     );
     res.status(200).json({
       message: "update product",
@@ -91,8 +91,8 @@ export const deleteProduct = async (
   next: NextFunction
 ) => {
   try {
-    const productTitle = req.params.title;
-    await productServices.deleteProductByTitleService(productTitle);
+    const productId = req.params.id;
+    await productServices.deleteProductByTitleService(productId);
     const productList = await productServices.getAllProductsService();
     res.status(200).json({
       message: "product deleted",

@@ -33,13 +33,13 @@ export default function NavItems({ pages, handleCloseNavMenu }: Prop) {
                 color: "white",
                 display: "flex",
                 fontWeight: "700",
-                
               }}
+              startIcon={page.name === "Albums" ? <AlbumRoundedIcon  />  : 
+              page.name === "Home" ? <HomeRoundedIcon /> :
+              page.name === "Contact" ? <CallRoundedIcon /> :
+              page.name === "Login" ? <LoginRoundedIcon /> : null
+            }
             >
-              {page.name === "Albums" ? <AlbumRoundedIcon sx={{marginRight: "3px"}} /> : null}
-              {page.name === "Home" ? <HomeRoundedIcon sx={{marginRight: "3px"}}/> : null}
-              {page.name === "Contact" ? <CallRoundedIcon sx={{marginRight: "3px"}}/> : null}
-              {page.name === "Login" ? <LoginRoundedIcon sx={{marginRight: "3px"}}/> : null}
               <Typography variant="h6">{page.name}</Typography>
             </Button>
         </Link>
