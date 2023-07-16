@@ -5,5 +5,8 @@ export type Album = {
   image: string;
   link: string;
   releaseDate: string;
-  _id: string
+  _id: string;
+  artistInfo: string;
+  description: string;
+  embedLink: string;
 };

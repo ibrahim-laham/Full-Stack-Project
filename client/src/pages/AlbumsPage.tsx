@@ -17,7 +17,7 @@ export default function AlbumsPage() {
 
 
   return (
-    <Paper elevation={1}  square sx={{padding: "2vh", height: "90vh", backgroundImage: "linear-gradient( 179deg,  rgba(0,0,0,0.2) 60%, rgba(127,16,16,0.55) 103.9% )"}} >
+    <Paper elevation={1}  square sx={{padding: "2vh", height: "90vh", backgroundImage: "linear-gradient( 179deg,  rgba(0,0,0,0.2) 60%, rgba(135, 7, 7,0.55) 103.9% )"}} >
       <Grid container spacing={5}>
         {albumsData?.map((album) => (
           <Grid xs={12} md={3}>

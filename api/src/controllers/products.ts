@@ -10,13 +10,18 @@ export const createProduct = async (
   next: NextFunction
 ) => {
   try {
+    const {title, artist, price, image, link, releaseDate, artistInfo, description, embedLink}= req.body;
+
     const productInfo = new Product({
-      title: req.body.title,
-      artist: req.body.artist,
-      price: req.body.price,
-      image: req.body.image,
-      link: req.body.link,
-      releaseDate: req.body.releaseDate,
+      title: title,
+      artist: artist,
+      price: price,
+      image: image,
+      link: link,
+      releaseDate: releaseDate,
+      artistInfo: artistInfo,
+      description: description,
+      embedLink: embedLink,
     });
     const product = await productServices.createProductService(productInfo);
 

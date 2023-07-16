@@ -8,14 +8,13 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useTheme } from "@mui/material/styles";
+import Stack from "@mui/material/Stack";
 
 export default function AlbumDetails() {
   const param = useParams();
   const albumsData = useSelector((state: RootState) => state.albums.albums);
   const album = albumsData.filter((album) => album._id === param.id);
 
-  const theme = useTheme();
   return (
     <Paper
       elevation={1}
@@ -26,28 +25,37 @@ export default function AlbumDetails() {
         alignItems: "center",
       }}
     >
-      <Paper elevation={12} sx={{ height: "80vh", width: "50vw" }}>
-        <Card sx={{ width: "100%", height: "72%" }}>
-          <CardMedia
-            sx={{ height: "70%" }}
-            image={album[0].image}
-            title="green iguana"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {album[0].title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Add to cart</Button>
-            <Button size="small">Add to wishList</Button>
-          </CardActions>
-        </Card>
-        <iframe style={{borderRadius: "12px"}} src="https://open.spotify.com/embed/track/2LMkwUfqC6S6s6qDVlEuzV?utm_source=generator" width="100%" height="30%" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <Paper elevation={12} sx={{ height: "75vh", width: "50vw" }}>
+        <Stack sx={{height: "100%"}}>
+          <Card sx={{ width: "100%", height: "70%" }}>
+            <CardMedia
+              sx={{ height: "50%" }}
+              image={album[0].image}
+              title="green iguana"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {album[0].title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {album[0].description}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small">Add to cart</Button>
+              <Button size="small">Add to wishList</Button>
+            </CardActions>
+          </Card>
+          <iframe
+            style={{ borderRadius: "12px", height: "30%"}}
+            src={album[0].embedLink}
+            width="100%"
+            height="30%"
+            frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          ></iframe>
+        </Stack>
       </Paper>
     </Paper>
   );

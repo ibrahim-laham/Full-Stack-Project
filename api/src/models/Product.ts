@@ -8,6 +8,9 @@ export type ProductDocument = Document & {
   image: string;
   link: string;
   releaseDate: Date;
+  description: string;
+  artistInfo: string;
+  embedLink: string;
 }
 
 export const productSchema = new mongoose.Schema({
@@ -33,6 +36,15 @@ export const productSchema = new mongoose.Schema({
   releaseDate: {
     type: Date,
   },
+  description: {
+    type: String,
+  },
+  artistInfo: {
+    type: String,
+  },
+  embedLink: {
+    type: String,
+  }
 });
 
 export default mongoose.model<ProductDocument>("Product", productSchema);
