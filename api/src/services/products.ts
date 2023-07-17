@@ -11,12 +11,12 @@ const getAllProductsService = async (): Promise<ProductDocument[]> => {
   return await Product.find();
 };
 
-const getProductByTitleService = async (
-  productTitle: string
-): Promise<ProductDocument | {}> => {
-  const product = await Product.find({ title: productTitle });
+const getProductByIdService = async (
+  productId: string
+): Promise<ProductDocument[]> => {
+  const product = await Product.find({ _id: productId });
   if (!product) {
-    throw new NotFoundError(`the product does not exist with the title ${productTitle}`)
+    throw new NotFoundError(`the product does not exist with the title ${productId}`)
   }
   return product;
 };
@@ -39,7 +39,7 @@ const deleteProductByTitleService = async (productId: string) => {
 
 export default {
   createProductService,
-  getProductByTitleService,
+  getProductByIdService,
   getAllProductsService,
   updateProductService,
   deleteProductByTitleService,

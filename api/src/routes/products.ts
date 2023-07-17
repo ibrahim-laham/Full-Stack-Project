@@ -1,7 +1,7 @@
 import {
   createProduct,
   deleteProduct,
-  getProductByTitle,
+  getProductById,
   getProduct,
   updateProduct,
 } from "../controllers/products";
@@ -13,7 +13,7 @@ const router = Router();
 router.post("/", createProduct);
 router.get("/", getProduct);
 router.put("/:id", updateProduct);
-router.get("/:title", getProductByTitle);
+router.get("/:id", getProductById);
 router.delete("/:id", deleteProduct);
 
 export default router;

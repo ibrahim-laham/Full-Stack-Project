@@ -5,10 +5,23 @@ import { Album } from "../../types/type";
 
 type AlbumsState = {
   albums: Album[];
+  album: Album[];
 };
 
 const albumsState: AlbumsState = {
   albums: [],
+  album: [{
+    title: "",
+    artist: "",
+    price: 0,
+    image: "",
+    link: "",
+    releaseDate: "",
+    _id: "",
+    artistInfo: "",
+    description: "",
+    embedLink: "",
+  }],
 };
 
 const albumsSlice = createSlice({
@@ -17,6 +30,9 @@ const albumsSlice = createSlice({
   reducers: {
     displayAlbums: (state, action: PayloadAction<Album[]>) => {
       state.albums = action.payload;
+    },
+    displayAlbumDetail: (state, action: PayloadAction<Album[]>) => {
+      state.album = action.payload;
     },
   },
 });

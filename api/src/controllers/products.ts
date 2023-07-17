@@ -50,15 +50,15 @@ export const getProduct = async (
   }
 };
 
-export const getProductByTitle = async (
+export const getProductById = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const productTitle = req.params.title;
-    const product = await productServices.getProductByTitleService(
-      productTitle
+    const productId = req.params.id;
+    const product = await productServices.getProductByIdService(
+      productId
     );
     res.status(200).json({
       message: "get product by its title",
