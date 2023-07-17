@@ -6,22 +6,26 @@ import { Album } from "../../types/type";
 type AlbumsState = {
   albums: Album[];
   album: Album[];
+  ordering: "asc" | "desc"
 };
 
 const albumsState: AlbumsState = {
   albums: [],
-  album: [{
-    title: "",
-    artist: "",
-    price: 0,
-    image: "",
-    link: "",
-    releaseDate: "",
-    _id: "",
-    artistInfo: "",
-    description: "",
-    embedLink: "",
-  }],
+  album: [
+    {
+      title: "",
+      artist: "",
+      price: 0,
+      image: "",
+      link: "",
+      releaseDate: "",
+      _id: "",
+      artistInfo: "",
+      description: "",
+      embedLink: "",
+    },
+  ],
+  ordering: "asc",
 };
 
 const albumsSlice = createSlice({
@@ -34,6 +38,18 @@ const albumsSlice = createSlice({
     displayAlbumDetail: (state, action: PayloadAction<Album[]>) => {
       state.album = action.payload;
     },
+    searchAlbums: (state, action: PayloadAction<string>) => {
+      state.albums = state.albums.filter(
+        (album) => action.payload.toLowerCase() === album.title.toLowerCase()
+      );
+    },
+    sortOrder: (state,action: PayloadAction<"asc" | "desc">) => {
+      state.ordering = action.payload
+    },
+    sortAlbums : (state) => {
+      state.ordering === "asc"? state.albums = state.albums.sort((a,b)=> a.price-b.price):
+      state.albums= state.albums.sort((a,b)=> b.price- a.price)
+    }
   },
 });
 

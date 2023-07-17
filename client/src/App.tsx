@@ -6,7 +6,6 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AlbumsPage from "./pages/AlbumsPage";
 import { createContext, useMemo, useState } from "react";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Stack from "@mui/material/Stack";
 import AlbumDetails from "./pages/AlbumDetails";
 import SearchSpotify from "./components/DevTools/SearchSpotify";
@@ -30,7 +29,6 @@ declare module "@mui/material/AppBar" {
     goldRush: true;
   }
 }
-
 
 const getDesignTokens = (mode: PaletteMode) => ({
   palette: {
@@ -94,14 +92,11 @@ const getDesignTokens = (mode: PaletteMode) => ({
 function App() {
   const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
-  
-
   const [mode, setMode] = useState<PaletteMode>("dark");
   const colorMode = useMemo(
     () => ({
       // The dark mode switch would invoke this method
       toggleColorMode: () => {
-        
         setMode((prevMode: PaletteMode) =>
           prevMode === "light" ? "dark" : "light"
         );
@@ -115,14 +110,14 @@ function App() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <div className="App">
-          <Stack>
+        <div className="App" >
+          <Stack >
             <Navbar mode={mode} setMode={setMode} />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/albums" element={<AlbumsPage />} />
-              <Route path="/albums/:id" element={<AlbumDetails/> } />
-              <Route path="/devtool" element={<SearchSpotify/>}/>
+              <Route path="/albums/:id" element={<AlbumDetails />} />
+              <Route path="/devtool" element={<SearchSpotify />} />
             </Routes>
           </Stack>
         </div>

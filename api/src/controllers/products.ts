@@ -61,7 +61,7 @@ export const getProductById = async (
       productId
     );
     res.status(200).json({
-      message: "get product by its title",
+      message: "get product by its id",
       foundProduct: product,
     });
   } catch (error) {

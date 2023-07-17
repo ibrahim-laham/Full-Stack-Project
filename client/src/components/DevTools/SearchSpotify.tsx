@@ -9,6 +9,7 @@ export default function SearchSpotify() {
 
   const [token, setToken] = useState<string | undefined | null>("");
   const [searchKey, setSearchKey] = useState("");
+  const [album, setAlbum] = useState({});
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -47,7 +48,33 @@ export default function SearchSpotify() {
         type: "album",
       },
     });
+    /* const albumData = data.albums.items[0]; */
+
+    const { name, release_date } = data.albums.items[0];
+    const spotifyLink = data.albums.items[0].external_urls.spotify;
+    const artistName = data.albums.items[0].artists[0].name;
+    const imageUrl = data.albums.items[0].images[0].url;
+    const price = Math.floor(Math.random() * 100 + 1);
+
+    const albumData = {
+      title: name,
+      artist: artistName,
+      image: imageUrl,
+      link: spotifyLink,
+      releaseDate: release_date,
+      price: price,
+    };
+    setAlbum(albumData);
     console.log(data);
+    console.log(albumData);
+  };
+
+  const addAlbumToDatabase = async () => {
+    const endpoint = "http://localhost:8000/products";
+    await axios
+      .post(endpoint, album)
+      .then((res) => console.log(res.data))
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -61,7 +88,10 @@ export default function SearchSpotify() {
             Login to Spotify
           </a>
         ) : (
-          <button onClick={logout}>Logout</button>
+          <div>
+            <button onClick={logout}>Logout</button>
+            <button onClick={addAlbumToDatabase}>add album to database</button>
+          </div>
         )}
         {token ? (
           <form onSubmit={fetchData}>

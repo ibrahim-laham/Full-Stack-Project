@@ -23,11 +23,11 @@ export default function AlbumCard({ album }: Prop) {
       <CardMedia
         component="img"
         alt="green iguana"
-        height="140"
+        height="200"
         image={album.image}
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+      <CardContent sx={{height: "25%"}}>
+        <Typography gutterBottom variant="h5" component="div" sx={{height: "40%", overflow: "hidden", textOverflow: "ellipsis" ,whiteSpace: "nowrap"}} >
           {album.title}
         </Typography>
         <Typography gutterBottom variant="body1" component="div">
@@ -37,7 +37,7 @@ export default function AlbumCard({ album }: Prop) {
           short description of the album
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions  >
         <Link to={`/albums/${album._id}`} style={{textDecoration : "none"}} ><Button size="small" sx={{color: "white"}}>Learn More</Button></Link>
         <Button size="small" sx={{color: "white"}}><FavoriteIcon  /> </Button>
         <Button size="small" sx={{color: "white"}}><ShoppingCartIcon/> </Button>
