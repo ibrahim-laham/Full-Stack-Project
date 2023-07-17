@@ -28,7 +28,8 @@ export default function NavItems({ pages, handleCloseNavMenu }: Prop) {
             <Button
               key={page.name}
               onClick={handleCloseNavMenu}
-              variant="contained"
+              variant="text"
+              
               sx={{
                 color: "white",
                 display: "flex",

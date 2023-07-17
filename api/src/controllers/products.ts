@@ -25,7 +25,7 @@ export const createProduct = async (
     });
     const product = await productServices.createProductService(productInfo);
 
-    res.status(200).json({
+    res.status(201).json({
       message: "create product",
       product: product,
     });

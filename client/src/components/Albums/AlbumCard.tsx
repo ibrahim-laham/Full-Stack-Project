@@ -41,6 +41,7 @@ export default function AlbumCard({ album }: Prop) {
         <Link to={`/albums/${album._id}`} style={{textDecoration : "none"}} ><Button size="small" sx={{color: "white"}}>Learn More</Button></Link>
         <Button size="small" sx={{color: "white"}}><FavoriteIcon  /> </Button>
         <Button size="small" sx={{color: "white"}}><ShoppingCartIcon/> </Button>
+        <Typography sx={{marginLeft: "5px"}} >&#x20AC;{album.price}</Typography>
       </CardActions>
     </Card>
   );

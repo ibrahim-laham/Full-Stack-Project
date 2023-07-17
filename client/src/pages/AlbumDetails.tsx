@@ -9,6 +9,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
+import IconButton from "@mui/material/IconButton";
+import { BsSpotify, BsYoutube } from "react-icons/bs";
 
 export default function AlbumDetails() {
   const param = useParams();
@@ -26,29 +28,38 @@ export default function AlbumDetails() {
       }}
     >
       <Paper elevation={12} sx={{ height: "75vh", width: "50vw" }}>
-        <Stack sx={{height: "100%"}}>
+        <Stack sx={{ height: "100%" }}>
           <Card sx={{ width: "100%", height: "70%" }}>
             <CardMedia
               sx={{ height: "50%" }}
-              image={album[0].image}
+              image={album[0]?.image}
               title="green iguana"
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                {album[0].title}
+                {album[0]?.title}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {album[0].description}
+                {album[0]?.description}
               </Typography>
             </CardContent>
             <CardActions>
               <Button size="small">Add to cart</Button>
               <Button size="small">Add to wishList</Button>
+              <IconButton>
+                <a href={album[0]?.link} target="_blank" rel="noreferrer">
+                  <BsSpotify style={{ color: "springgreen" }} />
+                </a>{" "}
+              </IconButton>
+              <IconButton>
+                <BsYoutube style={{ color: "red" }} />{" "}
+              </IconButton>
             </CardActions>
           </Card>
           <iframe
-            style={{ borderRadius: "12px", height: "30%"}}
-            src={album[0].embedLink}
+            title="spotify "
+            style={{ borderRadius: "12px", height: "30%" }}
+            src={album[0]?.embedLink}
             width="100%"
             height="30%"
             frameBorder="0"
