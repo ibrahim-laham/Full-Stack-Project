@@ -5,24 +5,26 @@ import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { BsSpotify, BsYoutube } from "react-icons/bs";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import {FaWikipediaW} from "react-icons/fa"
+import {AiOutlineStar} from "react-icons/ai"
 
-import {Album} from "../../types/type"
-
+import { Album } from "../../types/type";
 
 type Prop = {
   item: Album;
-}
+};
 
-
-
-export default function albumDetailsCard({item}:Prop) {
-  console.log(item)
+export default function albumDetailsCard({ item }: Prop) {
+  console.log(item);
   return (
-
-    <Card sx={{ width: "100%", height: "70%" }}>
-      <CardMedia sx={{ height: "50%" }} image={item.image} title={item.title} />
+    <Card sx={{ width: "100%", height: "70%",position: "relative" }}>
+      <CardMedia
+        sx={{ height: "50%" }}
+        image={item.image?.albumArt}
+        title={item.title}
+      />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {item.title}
@@ -31,7 +33,7 @@ export default function albumDetailsCard({item}:Prop) {
           {item.description}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{position: "absolute", bottom: "5%"}} >
         <IconButton>
           <AddShoppingCartIcon />
         </IconButton>
@@ -39,12 +41,24 @@ export default function albumDetailsCard({item}:Prop) {
           <FavoriteIcon />
         </IconButton>
         <IconButton>
-          <a href={item.link} target="_blank" rel="noreferrer">
+          <a href={item.link?.spotify} target="_blank" rel="noreferrer">
             <BsSpotify style={{ color: "springgreen" }} />
           </a>{" "}
         </IconButton>
         <IconButton>
-          <BsYoutube style={{ color: "red" }} />{" "}
+          <a href={item.link?.youtube} target="_blank" rel="noreferrer">
+            <BsYoutube style={{ color: "red" }} />
+          </a>{" "}
+        </IconButton>
+        <IconButton>
+          <a href={item.link?.wikipedia} target="_blank" rel="noreferrer"  >
+            <FaWikipediaW style={{color: "white"}}/>
+          </a>
+        </IconButton>
+        <IconButton>
+          <a href={item.rating?.pitchforkLink} target="_blank" rel="noreferrer">
+            <AiOutlineStar style={{color: "gold"}}/>
+          </a>
         </IconButton>
       </CardActions>
     </Card>

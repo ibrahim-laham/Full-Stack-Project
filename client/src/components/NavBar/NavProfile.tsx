@@ -19,11 +19,33 @@ export default function NavProfile({
   handleCloseUserMenu,
   settings,
 }: Prop) {
+  const avatars = [
+    {
+      alt: "man",
+      link: "https://static.vecteezy.com/system/resources/previews/002/002/263/large_2x/black-man-with-beard-avatar-character-free-vector.jpg",
+    },
+    {
+      alt: "man",
+      link: "https://static.vecteezy.com/system/resources/previews/002/002/403/large_2x/man-with-beard-avatar-character-isolated-icon-free-vector.jpg",
+    },
+    {
+      alt: "woman",
+      link: "https://static.vecteezy.com/system/resources/previews/004/607/794/large_2x/the-girl-smiles-office-worker-the-woman-with-white-hair-office-manager-designer-entrepreneur-blonde-illustration-flat-avatar-vector.jpg",
+    },
+    {
+      alt: "woman",
+      link: "https://static.vecteezy.com/system/resources/previews/001/993/889/large_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg",
+    },
+  ];
+
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="ibrahim" src="/static/images/avatar/2.jpg" />
+          <Avatar
+            alt="ibrahim"
+            src={avatars[1].link}
+          />
         </IconButton>
       </Tooltip>
       <Menu

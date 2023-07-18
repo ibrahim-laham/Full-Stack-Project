@@ -10,7 +10,20 @@ export const createProduct = async (
   next: NextFunction
 ) => {
   try {
-    const {title, artist, price, image, link, releaseDate, artistInfo, description, embedLink}= req.body;
+    const {
+      title,
+      artist,
+      price,
+      image,
+      link,
+      releaseDate,
+      artistInfo,
+      description,
+      embedLink,
+      totalTracks,
+      genre,
+      rating,
+    } = req.body;
 
     const productInfo = new Product({
       title: title,
@@ -22,6 +35,9 @@ export const createProduct = async (
       artistInfo: artistInfo,
       description: description,
       embedLink: embedLink,
+      totalTracks: totalTracks,
+      genre: genre,
+      rating: rating,
     });
     const product = await productServices.createProductService(productInfo);
 
@@ -57,9 +73,7 @@ export const getProductById = async (
 ) => {
   try {
     const productId = req.params.id;
-    const product = await productServices.getProductByIdService(
-      productId
-    );
+    const product = await productServices.getProductByIdService(productId);
     res.status(200).json({
       message: "get product by its id",
       foundProduct: product,

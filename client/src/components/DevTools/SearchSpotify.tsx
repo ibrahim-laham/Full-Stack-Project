@@ -45,6 +45,7 @@ export default function SearchSpotify() {
       },
       params: {
         q: searchKey,
+        limit: 50,
         type: "album",
       },
     });

@@ -9,6 +9,7 @@ import { createContext, useMemo, useState } from "react";
 import Stack from "@mui/material/Stack";
 import AlbumDetails from "./pages/AlbumDetails";
 import SearchSpotify from "./components/DevTools/SearchSpotify";
+import LoginPage from "./pages/LoginPage";
 
 type PaletteMode = "light" | "dark";
 declare module "@mui/material/styles" {
@@ -65,6 +66,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
             dark: "#6d0808",
           },
           secondary: {
+            light: "#bd68cc",
             main: "#6c1aa0",
             dark: "#2F0A47",
           },
@@ -118,6 +120,7 @@ function App() {
               <Route path="/albums" element={<AlbumsPage />} />
               <Route path="/albums/:id" element={<AlbumDetails />} />
               <Route path="/devtool" element={<SearchSpotify />} />
+              <Route path="/login" element={<LoginPage />}  />
             </Routes>
           </Stack>
         </div>

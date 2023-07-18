@@ -22,7 +22,7 @@ const pages = [
   { name: "Albums", path: "/albums" },
   { name: "Home", path: "/" },
   { name: "Contact", path: "/" },
-  { name: "Login", path: "/" },
+  { name: "Login", path: "/login" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 

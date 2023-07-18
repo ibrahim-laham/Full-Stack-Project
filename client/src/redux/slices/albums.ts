@@ -6,7 +6,7 @@ import { Album } from "../../types/type";
 type AlbumsState = {
   albums: Album[];
   album: Album[];
-  ordering: "asc" | "desc"
+  ordering: "asc" | "desc";
 };
 
 const albumsState: AlbumsState = {
@@ -16,13 +16,19 @@ const albumsState: AlbumsState = {
       title: "",
       artist: "",
       price: 0,
-      image: "",
-      link: "",
+      image: { albumArt: "", vinyl: "" },
+      link: { spotify: "", youtube: "", wikipedia: "" },
       releaseDate: "",
       _id: "",
       artistInfo: "",
       description: "",
       embedLink: "",
+      totalTracks: 0,
+      genre: "",
+      rating: {
+        rating: 0,
+        pitchforkLink: "",
+      },
     },
   ],
   ordering: "asc",
@@ -43,13 +49,14 @@ const albumsSlice = createSlice({
         (album) => action.payload.toLowerCase() === album.title.toLowerCase()
       );
     },
-    sortOrder: (state,action: PayloadAction<"asc" | "desc">) => {
-      state.ordering = action.payload
+    sortOrder: (state, action: PayloadAction<"asc" | "desc">) => {
+      state.ordering = action.payload;
     },
-    sortAlbums : (state) => {
-      state.ordering === "asc"? state.albums = state.albums.sort((a,b)=> a.price-b.price):
-      state.albums= state.albums.sort((a,b)=> b.price- a.price)
-    }
+    sortAlbums: (state) => {
+      state.ordering === "asc"
+        ? (state.albums = state.albums.sort((a, b) => a.price - b.price))
+        : (state.albums = state.albums.sort((a, b) => b.price - a.price));
+    },
   },
 });
 

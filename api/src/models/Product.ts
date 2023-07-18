@@ -5,12 +5,18 @@ import mongoose, { Document } from "mongoose";
 export type ProductDocument = Document & {
   title: string;
   price: number;
-  image: string;
-  link: string;
+  image: {albumArt: string; vinyl: string;};
+  link: {spotify: string; youtube: string; wikipedia: string;};
   releaseDate: Date;
   description: string;
   artistInfo: string;
   embedLink: string;
+  totalTracks: number;
+  genre: string;
+  rating: {
+    rating: number;
+    pitchforkLink: string;
+  };
 }
 
 export const productSchema = new mongoose.Schema({
@@ -27,11 +33,17 @@ export const productSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: String,
+    type: {
+      albumArt: String,
+      vinyl: String,
+    },
   },
   link: {
-    type: String,
-    default: "https://www.spotify.com",
+    type: {
+      spotify: String,
+      youtube: String,
+      wikipedia: String,
+    }
   },
   releaseDate: {
     type: Date,
@@ -44,6 +56,18 @@ export const productSchema = new mongoose.Schema({
   },
   embedLink: {
     type: String,
+  },
+  totalTracks: {
+    type: Number,
+  }, 
+  genre: {
+    type: String,
+  },
+  rating: {
+    type: {
+      rating: Number,
+      pitchforkLink: String,
+    },
   }
 });
 

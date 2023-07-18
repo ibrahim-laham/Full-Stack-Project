@@ -24,7 +24,7 @@ export default function AlbumCard({ album }: Prop) {
         component="img"
         alt="green iguana"
         height="200"
-        image={album.image}
+        image={album.image?.albumArt}
       />
       <CardContent sx={{height: "25%"}}>
         <Typography gutterBottom variant="h5" component="div" sx={{height: "40%", overflow: "hidden", textOverflow: "ellipsis" ,whiteSpace: "nowrap"}} >
