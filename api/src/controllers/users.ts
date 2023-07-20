@@ -24,7 +24,7 @@ export const createUser = async (
       password: hashedPassword,
     });
 
-    const newUser = await usersServices.createUserService(user);
+    const newUser = await usersServices.createUser(user);
     res.status(200).json({
       message: "create user",
       users: newUser,
@@ -81,7 +81,13 @@ export const updateUser = async (
 ) => {
   try {
     const userId = req.params.userId;
-    const update = req.body;
+    const updateFromUser = req.body;
+    const password = req.body.password;
+
+    const salt = await bcrypt.genSalt(12);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const update = { ...updateFromUser, password: hashedPassword };
+
     const user = await usersServices.updateUser(userId, update);
 
     res.status(200).json({
@@ -92,3 +98,18 @@ export const updateUser = async (
     next(error);
   }
 };
+
+export const getUserById = async (req: Request,
+  res: Response,
+  next: NextFunction) => {
+    try {
+      const userId = req.params.id;
+      const user = await usersServices.getUserById(userId);
+      res.status(200).json({
+        message: "found user by id",
+        user: user,
+      })
+    }catch (error) {
+      next(error)
+    }
+}

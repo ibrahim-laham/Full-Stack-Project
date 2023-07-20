@@ -3,6 +3,7 @@ import passport from "passport";
 
 import {
   createUser,
+  getUserById,
   loginWithPassword,
   updateUser,
 } from "../controllers/users";
@@ -16,5 +17,6 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   updateUser
 );
+router.get("/:id", getUserById);
 
 export default router;

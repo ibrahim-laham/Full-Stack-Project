@@ -38,7 +38,7 @@ export default function NavItems({ pages, handleCloseNavMenu }: Prop) {
               startIcon={page.name === "Albums" ? <AlbumRoundedIcon  />  : 
               page.name === "Home" ? <HomeRoundedIcon /> :
               page.name === "Contact" ? <CallRoundedIcon /> :
-              page.name === "Login" ? <LoginRoundedIcon /> : null
+              page.name === "Sign in" ? <LoginRoundedIcon /> : null
             }
             >
               <Typography variant="h6">{page.name}</Typography>

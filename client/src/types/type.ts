@@ -16,3 +16,11 @@ export type Album = {
     pitchforkLink: string;
   };
 };
+
+export type UserData = {
+  nickName: string;
+  email: string; 
+  password: string;
+  _id: string;
+  __v: number;
+}

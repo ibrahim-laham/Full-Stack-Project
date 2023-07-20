@@ -19,10 +19,10 @@ type Prop = {
 };
 
 const pages = [
-  { name: "Albums", path: "/albums" },
   { name: "Home", path: "/" },
+  { name: "Albums", path: "/albums" },
   { name: "Contact", path: "/" },
-  { name: "Login", path: "/login" },
+  { name: "Sign in", path: "/signin" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -53,7 +53,6 @@ export default function Navbar({ mode, setMode }: Prop) {
     }
   };
 
-  
   const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
     height: 34,
@@ -103,7 +102,10 @@ export default function Navbar({ mode, setMode }: Prop) {
   }));
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "primary.main", padding: "4px"}}>
+    <AppBar
+      position="static"
+      sx={{ backgroundColor: "primary.main", padding: "4px" }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo />
@@ -116,7 +118,10 @@ export default function Navbar({ mode, setMode }: Prop) {
           <LogoXs />
           <NavItems handleCloseNavMenu={handleCloseNavMenu} pages={pages} />
           <IconButton onClick={themeColorHandler}>
-            <MaterialUISwitch sx={{ m: 1 }} checked={mode === "light" ? false: true} />
+            <MaterialUISwitch
+              sx={{ m: 1 }}
+              checked={mode === "light" ? false : true}
+            />
           </IconButton>
           <NavProfile
             handleOpenUserMenu={handleOpenUserMenu}

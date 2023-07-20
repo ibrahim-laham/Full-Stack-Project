@@ -9,7 +9,9 @@ import { createContext, useMemo, useState } from "react";
 import Stack from "@mui/material/Stack";
 import AlbumDetails from "./pages/AlbumDetails";
 import SearchSpotify from "./components/DevTools/SearchSpotify";
-import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import SigninPage from "./pages/SigninPage";
+import ProfilePage from "./pages/ProfilePage";
 
 type PaletteMode = "light" | "dark";
 declare module "@mui/material/styles" {
@@ -120,7 +122,9 @@ function App() {
               <Route path="/albums" element={<AlbumsPage />} />
               <Route path="/albums/:id" element={<AlbumDetails />} />
               <Route path="/devtool" element={<SearchSpotify />} />
-              <Route path="/login" element={<LoginPage />}  />
+              <Route path="/signin" element={<SigninPage/>}  />
+              <Route path="/register" element={<RegisterPage />}  />
+              <Route path="/profile" element={<ProfilePage/>}  />
             </Routes>
           </Stack>
         </div>
