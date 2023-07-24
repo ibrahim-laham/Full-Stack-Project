@@ -2,12 +2,21 @@ import mongoose, { Document } from "mongoose";
 
 import { ProductDocument, productSchema } from "./Product";
 
-type ProductOrderDocument = Document &{
+export type ProductOrderDocument = Document &{
   title: string;
   price: number;
-  image: string;
-  link: string;
+  image: {albumArt: string; vinyl: string;};
+  link: {spotify: string; youtube: string; wikipedia: string;};
   releaseDate: Date;
+  description: string;
+  artistInfo: string;
+  embedLink: string;
+  totalTracks: number;
+  genre: string;
+  rating: {
+    rating: number;
+    pitchforkLink: string;
+  };
   quantity: number;
 };
 
@@ -25,18 +34,44 @@ const productOrderSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: String,
+    type: {
+      albumArt: String,
+      vinyl: String,
+    },
   },
   link: {
-    type: String,
-    default: "https://www.spotify.com",
+    type: {
+      spotify: String,
+      youtube: String,
+      wikipedia: String,
+    }
   },
   releaseDate: {
     type: Date,
   },
+  description: {
+    type: String,
+  },
+  artistInfo: {
+    type: String,
+  },
+  embedLink: {
+    type: String,
+  },
+  totalTracks: {
+    type: Number,
+  }, 
+  genre: {
+    type: String,
+  },
+  rating: {
+    type: {
+      rating: Number,
+      pitchforkLink: String,
+    },
+  },
   quantity: {
     type: Number,
-    required: true,
   }
 });
 

@@ -33,7 +33,7 @@ export default function AlbumCard({ album }: Prop) {
   };
 
   const cartHandler = () => {
-    dispatch(cartActions.addToCartList(album));
+    dispatch(cartActions.addToCartList({...album, quantity: 1}));
     cartList.map((item) => {
       if (item._id === album._id) {
         return dispatch(cartActions.removeFormCartList(album));

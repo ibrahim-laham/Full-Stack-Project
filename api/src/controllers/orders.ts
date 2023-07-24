@@ -21,3 +21,16 @@ export const createOrder = async (
     next(error);
   }
 };
+
+export const getOrdersById = async (req: Request,
+  res: Response,
+  next: NextFunction) => {
+    try {
+      const userId = req.params.userId;
+      const orderList = await orderServices.getOrdersByIdService(userId)
+      res.status(200).json(orderList)
+    }
+    catch (error) {
+      next(error)
+    }
+}

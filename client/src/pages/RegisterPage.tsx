@@ -7,7 +7,7 @@ import RegisterForm from "../components/Signin/RegisterForm";
 export default function RegisterPage() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  
   const handleClose = () => {
     navigate("/signin");
     setOpen(false);
@@ -24,7 +24,7 @@ export default function RegisterPage() {
     >
       <Paper elevation={12} sx={{ minWidth: "30vw", minHeight: "30vh" }}>
         <RegisterModal open={open} handleClose={handleClose} />
-        <RegisterForm handleOpen={handleOpen} handleClose={handleClose} />
+        <RegisterForm  setOpen={setOpen} />
       </Paper>
     </Paper>
   );

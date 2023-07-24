@@ -1,16 +1,20 @@
 import mongoose, { Document } from "mongoose";
 
 export type UserDocument = Document & {
-  nickName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 };
 
 const userSchema = new mongoose.Schema({
-  nickName: {
+  firstName: {
     type: String,
     required: true,
-    unique: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
   },
   email: {
     type: String,

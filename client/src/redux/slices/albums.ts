@@ -29,6 +29,7 @@ const albumsState: AlbumsState = {
         rating: 0,
         pitchforkLink: "",
       },
+      quantity: 1,
     },
   ],
   ordering: "asc",

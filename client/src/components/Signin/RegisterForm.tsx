@@ -1,111 +1,179 @@
-import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
+import CssBaseline from "@mui/material/CssBaseline";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type UserInput = {
-  nickName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 };
 
 type Prop = {
-  handleClose: () => void;
-  handleOpen: () => void;
+  setOpen: (value: React.SetStateAction<boolean>) => void;
 };
 
-export default function RegisterForm({ handleClose, handleOpen }: Prop) {
+export default function RegisterForm({ setOpen }: Prop) {
   const [userInput, setUserInput] = useState<UserInput>({
-    nickName: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
 
-  const storeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput({ ...userInput, nickName: e.target.value });
-  };
+  function Copyright(props: any) {
+    return (
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        {...props}
+      >
+        {"Copyright © "}
+        <Link color="inherit" href="https://mui.com/">
+          Your Website
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    );
+  }
 
-  const storeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput({ ...userInput, email: e.target.value });
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    setUserInput({
+      email: data.get("email") as string,
+      password: data.get("password") as string,
+      firstName: data.get("firstName") as string,
+      lastName: data.get("lastName") as string,
+    });
   };
-  const storePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput({ ...userInput, password: e.target.value });
-  };
+  console.log(userInput);
 
-
-  const createUser = async () => {
-    const endpoint = "http://localhost:8000/users";
-    await axios
-      .post(endpoint, userInput)
-      .then((res) => {
-        console.log(res.data);
-        if (res.status === 200) {
-          return handleOpen();
-           
-        } else {
-          return handleClose();
-        }
-      })
-      .catch((error) => console.log(error));
-    setUserInput({ nickName: "", email: "", password: "" });
-  };
+  useEffect(() => {
+    const handleOpen = () => setOpen(true);
+    const createUser = () => {
+      const endpoint = "http://localhost:8000/users";
+      axios
+        .post(endpoint, userInput)
+        .then((res) => {
+          console.log(res.data);
+          if (res.status === 200) {
+            return handleOpen();
+          }
+        })
+        .catch((error) => console.log(error));
+    };
+    if (userInput.firstName) {
+      createUser();
+    }
+  }, [userInput, setOpen]);
 
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "40vh",
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <Typography variant="h4" sx={{ color: "secondary.light" }}>
-        {" "}
-        Register a new account for you:
-      </Typography>
-      <TextField
-        required
-        id="outlined-required"
-        label="Username"
-        defaultValue="Username"
-        onChange={storeUserName}
-      />
-      <TextField
-        required
-        id="outlined-required"
-        label="Email"
-        defaultValue="Email"
-        onChange={storeEmail}
-      />
-      <TextField
-        required
-        id="outlined-password-input"
-        label="password"
-        type="password"
-        autoComplete="current-password"
-        onChange={storePassword}
-      />
-      <Stack direction="row" spacing={7}>
-        <Button
-          type="button"
-          sx={{
-            color: "white",
-            backgroundColor: "secondary.light",
-            marginTop: "2vh",
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <Box
+          component="form"
+          noValidate
+          onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+            handleSubmit(event);
           }}
-          onClick={createUser}
+          sx={{ mt: 3 }}
         >
-          Register
-        </Button>
-      </Stack>
-    </Box>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="given-name"
+                name="firstName"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="family-name"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="new-password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="I want to receive inspiration, marketing promotions and updates via email."
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign Up
+          </Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link href="#" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+      <Copyright sx={{ mt: 5 }} />
+    </Container>
   );
 }

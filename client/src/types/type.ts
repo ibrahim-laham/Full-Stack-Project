@@ -15,10 +15,12 @@ export type Album = {
     rating: number;
     pitchforkLink: string;
   };
+  quantity: number;
 };
 
 export type UserData = {
-  nickName: string;
+  firstName: string;
+  lastName: string;
   email: string; 
   password: string;
   _id: string;

@@ -17,6 +17,6 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   updateUser
 );
-router.get("/:id", getUserById);
+router.get("/:id",passport.authenticate("jwt", { session: false }), getUserById);
 
 export default router;

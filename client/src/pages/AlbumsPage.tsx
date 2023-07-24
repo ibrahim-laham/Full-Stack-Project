@@ -55,7 +55,7 @@ export default function AlbumsPage() {
               sm={6}
               md={3}
               lg={2}
-              display="flex"
+              
               justifyContent="center"
             >
               <AlbumCard album={album} key={album._id} />

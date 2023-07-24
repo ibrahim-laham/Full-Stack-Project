@@ -13,13 +13,14 @@ export const createUser = async (
   next: NextFunction
 ) => {
   try {
-    const { nickName, email, password } = req.body;
+    const { firstName,lastName, email, password } = req.body;
 
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = new User({
-      nickName: nickName,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: hashedPassword,
     });
@@ -61,7 +62,7 @@ export const loginWithPassword = async (
     const token = jwt.sign(
       {
         email: userData.email,
-        nickName: userData.nickName,
+        firstName: userData.firstName,
         _id: userData._id,
       },
       JWT_SECRET,

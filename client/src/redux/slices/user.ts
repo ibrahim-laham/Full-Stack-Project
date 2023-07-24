@@ -8,7 +8,7 @@ type UserState = {
 };
 
 const userState: UserState = {
-  userData: { nickName: "", email: "", password: "", _id: "", __v: 0 },
+  userData: { firstName: "",lastName: "", email: "", password: "", _id: "", __v: 0 },
 };
 
 const userSlice = createSlice({

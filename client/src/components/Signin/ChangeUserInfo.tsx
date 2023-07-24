@@ -13,9 +13,10 @@ import { userActions } from "../../redux/slices/user";
 export default function ChangeUserInfo() {
   const dispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.user.userData);
-  const { nickName, email, password, _id, __v } = userData;
+  const { firstName,lastName, email, password, _id, __v } = userData;
   const [userInput, setUserInput] = useState<UserData>({
-    nickName: nickName,
+    firstName: firstName,
+    lastName: lastName,
     email: email,
     password: password,
     _id: _id,
@@ -28,8 +29,8 @@ export default function ChangeUserInfo() {
   const emailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput({ ...userInput, email: e.target.value });
   };
-  const nickNameChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput({ ...userInput, nickName: e.target.value });
+  const firstNameChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput({ ...userInput, firstName: e.target.value });
   };
 
   const submitChangeHandler = async () => {
@@ -67,7 +68,7 @@ export default function ChangeUserInfo() {
         required
         id="outlined-required"
         label="Username"
-        onChange={nickNameChangeHandler}
+        onChange={firstNameChangeHandler}
       />
       <TextField
         required
