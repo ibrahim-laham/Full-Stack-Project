@@ -5,12 +5,13 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 type Prop = {
   handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void;
   anchorElUser: null | HTMLElement;
   handleCloseUserMenu: (event: React.MouseEvent<HTMLElement>) => void;
-  settings: string[];
+  settings: { path: string; name: string }[];
 };
 
 export default function NavProfile({
@@ -42,10 +43,7 @@ export default function NavProfile({
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar
-            alt="ibrahim"
-            src={avatars[1].link}
-          />
+          <Avatar alt="ibrahim" src={avatars[1].link} />
         </IconButton>
       </Tooltip>
       <Menu
@@ -65,9 +63,11 @@ export default function NavProfile({
         onClose={handleCloseUserMenu}
       >
         {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <Typography textAlign="center">{setting}</Typography>
-          </MenuItem>
+          <Link to={setting.path} style={{textDecoration: "none", color: "inherit"}} >
+            <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+              <Typography textAlign="center">{setting.name}</Typography>
+            </MenuItem>
+          </Link>
         ))}
       </Menu>
     </Box>

@@ -6,7 +6,9 @@ import AlbumRoundedIcon from "@mui/icons-material/AlbumRounded";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
-
+import {MdFavorite} from "react-icons/md"
+import {BsFillCartFill} from "react-icons/bs"
+ 
 type Prop = {
   handleCloseNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
   pages: {
@@ -38,6 +40,8 @@ export default function NavItems({ pages, handleCloseNavMenu }: Prop) {
               startIcon={page.name === "Albums" ? <AlbumRoundedIcon  />  : 
               page.name === "Home" ? <HomeRoundedIcon /> :
               page.name === "Contact" ? <CallRoundedIcon /> :
+              page.name === "Wishlist" ? <MdFavorite /> :
+              page.name === "Cart" ? <BsFillCartFill /> :
               page.name === "Sign in" ? <LoginRoundedIcon /> : null
             }
             >

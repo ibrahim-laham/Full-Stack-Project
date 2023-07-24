@@ -10,6 +10,7 @@ import ChangeUserInfo from "../components/Signin/ChangeUserInfo";
 import { getUserDetails } from "../redux/thunk/userDetails";
 
 export default function ProfilePage() {
+  const token = localStorage.getItem("Access_token")
   const userData = useSelector((state: RootState) => state.user.userData);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -28,22 +29,28 @@ export default function ProfilePage() {
     }
   };
 
-  return (
-    <Paper
-      sx={{
-        minHeight: "93vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Paper elevation={12} sx={{ minWidth: "30vw", minHeight: "30vh" }}>
-        <Typography variant="h5">Username: {userData?.nickName} </Typography>
-        <Typography variant="h5">Email: {userData?.email} </Typography>
-        <Typography variant="h5">Id: {userData?._id} </Typography>
-        <Button onClick={ChangeButtonHandler}>Change user information</Button>
-        {open ? <ChangeUserInfo /> : null}
+  if (token) {
+    return (
+      <Paper
+        sx={{
+          minHeight: "93vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Paper elevation={12} sx={{ minWidth: "30vw", minHeight: "30vh" }}>
+          <Typography variant="h5">Username: {userData?.nickName} </Typography>
+          <Typography variant="h5">Email: {userData?.email} </Typography>
+          <Typography variant="h5">Id: {userData?._id} </Typography>
+          <Button onClick={ChangeButtonHandler}>Change user information</Button>
+          {open ? <ChangeUserInfo /> : null}
+        </Paper>
       </Paper>
-    </Paper>
-  );
+    );
+  }
+  else {
+   return <div>please login or create a new account</div>
+  }
+  
 }

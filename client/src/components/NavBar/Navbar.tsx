@@ -21,10 +21,13 @@ type Prop = {
 const pages = [
   { name: "Home", path: "/" },
   { name: "Albums", path: "/albums" },
+  { name: "Wishlist", path: "/wishlist" },
+  { name: "Cart", path: "/cart" },
   { name: "Contact", path: "/" },
   { name: "Sign in", path: "/signin" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+
+const settings = [{path: "/profile", name: "Profile"}, {path: "/account", name: "Account"},{path: "/Dashboard", name: "Dashboard"},{path: "/logout", name: "Logout"}];
 
 export default function Navbar({ mode, setMode }: Prop) {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);

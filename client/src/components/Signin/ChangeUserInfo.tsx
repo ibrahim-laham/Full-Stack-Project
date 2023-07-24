@@ -84,6 +84,7 @@ export default function ChangeUserInfo() {
         onChange={passwordChangeHandler}
       />
       <Button onClick={submitChangeHandler}>Submit Change</Button>
+      {/* add modal here */}
     </Box>
   );
 }

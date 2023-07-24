@@ -12,6 +12,9 @@ import SearchSpotify from "./components/DevTools/SearchSpotify";
 import RegisterPage from "./pages/RegisterPage";
 import SigninPage from "./pages/SigninPage";
 import ProfilePage from "./pages/ProfilePage";
+import LogoutPage from "./pages/LogoutPage";
+import WishListPage from "./pages/WishListPage";
+import CartPage from "./pages/CartPage";
 
 type PaletteMode = "light" | "dark";
 declare module "@mui/material/styles" {
@@ -114,17 +117,20 @@ function App() {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <div className="App" >
-          <Stack >
+        <div className="App">
+          <Stack>
             <Navbar mode={mode} setMode={setMode} />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/albums" element={<AlbumsPage />} />
               <Route path="/albums/:id" element={<AlbumDetails />} />
               <Route path="/devtool" element={<SearchSpotify />} />
-              <Route path="/signin" element={<SigninPage/>}  />
-              <Route path="/register" element={<RegisterPage />}  />
-              <Route path="/profile" element={<ProfilePage/>}  />
+              <Route path="/signin" element={<SigninPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/logout" element={<LogoutPage />} />
+              <Route path="/wishlist" element={<WishListPage />} />
+              <Route path="/cart" element={<CartPage/>} />
             </Routes>
           </Stack>
         </div>

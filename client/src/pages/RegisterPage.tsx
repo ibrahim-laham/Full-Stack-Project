@@ -1,20 +1,17 @@
 import { useState } from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import RegisterModal from "../components/Signin/RegisterModal";
 import RegisterForm from "../components/Signin/RegisterForm";
 
-
-
 export default function RegisterPage() {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    navigate("/signin")
-    setOpen(false)
+    navigate("/signin");
+    setOpen(false);
   };
-  
 
   return (
     <Paper
