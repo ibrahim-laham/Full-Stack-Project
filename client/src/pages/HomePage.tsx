@@ -2,10 +2,18 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
-export default function HomePage() {
-  return (
-    <div className="landingImage">
-      <Stack
+import AwesomeSlider from "react-awesome-slider";
+import 'react-awesome-slider/dist/styles.css';
+/* import CoreStyles from 'react-awesome-slider/src/core/styles.scss';
+import AnimationStyles from 'react-awesome-slider/src/styled/fold-out-animation/fold-out-animation.scss'; */
+
+import firstImage from "../assets/FirstThis.jpg";
+import secondImage from "../assets/thisone3.jpg";
+import thirdImage from "../assets/thisone4.jpg";
+import Paper from "@mui/material/Paper";
+
+{
+  /* <Stack
         sx={{
           width: "30%",
           height: "50%",
@@ -30,7 +38,19 @@ export default function HomePage() {
         >
           See Our Products
         </Button>
-      </Stack>
-    </div>
+      </Stack> */
+}
+
+const slider = (
+  <AwesomeSlider animation="foldOutAnimation" /* cssModule={[coreStyles, animationStyles]} */>
+    <div><img src={firstImage} /></div>
+    <div><img src={secondImage}/></div>
+    <div><img src={thirdImage}/></div>
+  </AwesomeSlider>
+);
+
+export default function HomePage() {
+  return (
+    <Paper>{slider} </Paper>
   );
 }
