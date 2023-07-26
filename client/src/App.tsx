@@ -95,7 +95,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
     fontFamily: ["Signika", "sans-serif"].join(","),
   },
 });
-
+;
 function App() {
   const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
