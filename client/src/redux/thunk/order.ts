@@ -4,7 +4,7 @@ import { AppDispatch } from "../store";
 import { Album } from "../../types/type";
 
 export function createOrder(userId: string, cartList: Album[]) {
-  const url = `http://localhost:8000/orders/${userId}`;
+  const url = `https://full-stack-project-backend-e3xz.onrender.com/orders/${userId}`;
   const token =localStorage.getItem("Access_token")
   return async (dispatch: AppDispatch) => {
     await axios

@@ -68,7 +68,7 @@ export default function RegisterForm({ setOpen }: Prop) {
   useEffect(() => {
     const handleOpen = () => setOpen(true);
     const createUser = () => {
-      const endpoint = "http://localhost:8000/users";
+      const endpoint = "https://full-stack-project-backend-e3xz.onrender.com/users";
       axios
         .post(endpoint, userInput)
         .then((res) => {

@@ -34,7 +34,7 @@ export default function ChangeUserInfo() {
   };
 
   const submitChangeHandler = async () => {
-    const endpoint = `http://localhost:8000/users/${userData._id}`;
+    const endpoint = `https://full-stack-project-backend-e3xz.onrender.com/users/${userData._id}`;
     const token = localStorage.getItem("Access_token");
     await axios
       .put(endpoint, userInput, {

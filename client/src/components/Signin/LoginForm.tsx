@@ -46,7 +46,7 @@ export default function LoginForm() {
   }
 
   const loginHandler = async () => {
-    const endpoint = "http://localhost:8000/users/login";
+    const endpoint = "https://full-stack-project-backend-e3xz.onrender.com/users/login";
 
     await axios
       .post(endpoint, userInput)
