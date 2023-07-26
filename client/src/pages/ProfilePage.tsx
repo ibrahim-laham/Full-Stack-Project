@@ -40,7 +40,7 @@ export default function ProfilePage() {
         }}
       >
         <Paper elevation={12} sx={{ minWidth: "30vw", minHeight: "30vh" }}>
-          <Typography variant="h5">Username: {userData?.firstName} </Typography>
+          <Typography variant="h5">Firstname: {userData?.firstName} </Typography>
           <Typography variant="h5">Email: {userData?.email} </Typography>
           <Typography variant="h5">Id: {userData?._id} </Typography>
           <Button onClick={ChangeButtonHandler}>Change user information</Button>
