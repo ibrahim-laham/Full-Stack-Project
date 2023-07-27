@@ -116,10 +116,10 @@ export default function LoginForm() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link to="#">Forgot password?</Link>
+              <Link to="#" style={{color: "inherit"}}>Forgot password?</Link>
             </Grid>
             <Grid item>
-              <Link to="#">{"Don't have an account? Sign Up"}</Link>
+              <Link to="/register" style={{color: "inherit"}}>{"Don't have an account? Sign Up"}</Link>
             </Grid>
           </Grid>
         </Box>

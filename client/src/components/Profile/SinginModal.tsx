@@ -4,30 +4,18 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 
+import { style } from "./ChangeInfoModal";
+
 type Prop = {
-  open: boolean;
   handleClose: () => void;
 };
 
-export const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "secondary.main",
-  color: "white",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
-export default function ChangeInfoModal({ handleClose, open }: Prop) {
+export default function SinginModal({ handleClose }: Prop) {
   return (
     <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
-      open={open}
+      open={true}
       onClose={handleClose}
       closeAfterTransition
       slots={{ backdrop: Backdrop }}
@@ -37,13 +25,18 @@ export default function ChangeInfoModal({ handleClose, open }: Prop) {
         },
       }}
     >
-      <Fade in={open}>
+      <Fade in={true}>
         <Box sx={style}>
           <Typography id="transition-modal-title" variant="h6" component="h2">
-            Your Information has been changed
+            You are not signed in to your account
           </Typography>
-          <Typography id="transition-modal-description" variant="body1" sx={{ mt: 2 }}>
-            check your new information on your profile page.
+          <Typography
+            id="transition-modal-description"
+            variant="body1"
+            sx={{ mt: 2 }}
+          >
+            please register a new account or singin to you existing account.
+            Thank you
           </Typography>
         </Box>
       </Fade>
