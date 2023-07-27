@@ -7,24 +7,25 @@ import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import {AiOutlinePlusCircle,AiOutlineMinusCircle} from "react-icons/ai"
+import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 
-import {cartActions} from "../../redux/slices/cart"
+import { cartActions } from "../../redux/slices/cart";
 import { Album } from "../../types/type";
+import { Link } from "react-router-dom";
 
 type Prop = {
   item: Album;
 };
 
-export default function ItemCardActions({item}:Prop) {
-  const dispatch= useDispatch();
+export default function ItemCardActions({ item }: Prop) {
+  const dispatch = useDispatch();
 
-  function increaseQuantity () {
-    dispatch(cartActions.increaseQuantity(item))
+  function increaseQuantity() {
+    dispatch(cartActions.increaseQuantity(item));
   }
 
-  function decreaseQuantity () {
-    dispatch(cartActions.decreaseQuantity(item))
+  function decreaseQuantity() {
+    dispatch(cartActions.decreaseQuantity(item));
   }
 
   return (
@@ -39,16 +40,32 @@ export default function ItemCardActions({item}:Prop) {
           <Typography variant="body1">remove</Typography>{" "}
         </Button>
         <Button size="large" variant="contained" sx={{ width: "50%" }}>
-          <Typography variant="body1">view Item</Typography>
+          <Link to={`/albums/${item._id}`} style={{textDecoration: "none", color: "inherit"}} >
+            <Typography variant="body1">view Item</Typography>
+          </Link>
         </Button>
         <ButtonGroup
           variant="contained"
           aria-label="outlined primary button group"
-          sx={{alignItems: "center", justifyContent: "space-evenly", width: "50%"}}
+          sx={{
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            width: "50%",
+          }}
         >
-          <IconButton sx={{backgroundColor: "primary.main"}} onClick={increaseQuantity} ><AiOutlinePlusCircle /></IconButton>
+          <IconButton
+            sx={{ backgroundColor: "primary.main" }}
+            onClick={increaseQuantity}
+          >
+            <AiOutlinePlusCircle />
+          </IconButton>
           <Typography>{item.quantity} </Typography>
-          <IconButton sx={{backgroundColor: "primary.main"}} onClick={decreaseQuantity}><AiOutlineMinusCircle/> </IconButton>
+          <IconButton
+            sx={{ backgroundColor: "primary.main" }}
+            onClick={decreaseQuantity}
+          >
+            <AiOutlineMinusCircle />{" "}
+          </IconButton>
         </ButtonGroup>
       </Stack>
     </CardActions>

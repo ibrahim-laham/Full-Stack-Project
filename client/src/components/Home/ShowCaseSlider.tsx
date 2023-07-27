@@ -20,6 +20,7 @@ export default function ShowCaseSlider() {
   const settings = {
     dots: true,
     autoplay: true,
+    autoplaySpeed: 2000,
     speed: 700,
     slidesToShow: 4,
     slidesToScroll: 1,

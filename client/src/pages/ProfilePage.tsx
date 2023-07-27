@@ -1,33 +1,35 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { useDispatch } from "react-redux";
+import Grid from "@mui/material/Grid";
+
+import UserInfo from "../components/Profile/UserInfo";
+import UserOrders from "../components/Profile/UserOrders";
+import UserAvatar from "../components/Profile/UserAvatar";
 
 import { AppDispatch, RootState } from "../redux/store";
-import ChangeUserInfo from "../components/Signin/ChangeUserInfo";
 import { getUserDetails } from "../redux/thunk/userDetails";
+import { getUserOrders } from "../redux/thunk/order";
+
+
+
 
 export default function ProfilePage() {
-  const token = localStorage.getItem("Access_token")
+  const token = localStorage.getItem("Access_token");
   const userData = useSelector((state: RootState) => state.user.userData);
-  const [open, setOpen] = useState<boolean>(false);
+  const userOrders = useSelector((state: RootState) => state.orders.orders);
 
+  
   const appDispatch = useDispatch<AppDispatch>();
-  const userId = localStorage.getItem("userId")
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     appDispatch(getUserDetails(userId as string));
+    appDispatch(getUserOrders(userId as string));
   }, [appDispatch, userId]);
 
-  const ChangeButtonHandler = () => {
-    if (!open) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
-  };
+  
 
   if (token) {
     return (
@@ -35,22 +37,30 @@ export default function ProfilePage() {
         sx={{
           minHeight: "93vh",
           display: "flex",
-          justifyContent: "center",
+          flexDirection: "column",
+          padding: "5%",
           alignItems: "center",
         }}
       >
-        <Paper elevation={12} sx={{ minWidth: "30vw", minHeight: "30vh" }}>
-          <Typography variant="h5">Firstname: {userData?.firstName} </Typography>
-          <Typography variant="h5">Email: {userData?.email} </Typography>
-          <Typography variant="h5">Id: {userData?._id} </Typography>
-          <Button onClick={ChangeButtonHandler}>Change user information</Button>
-          {open ? <ChangeUserInfo /> : null}
-        </Paper>
+        <Grid
+          container
+          justifyContent="space-evenly"
+          alignItems="flex-start"
+          spacing={20}
+        >
+          <Grid item md={1}>
+            <UserAvatar/>
+          </Grid>
+          <Grid item md={5}>
+            <UserInfo userData={userData} />
+          </Grid>
+          <Grid item md={4}>
+            <UserOrders userOrders={userOrders} />
+          </Grid>
+        </Grid>
       </Paper>
     );
+  } else {
+    return <div>please login or create a new account</div>;
   }
-  else {
-   return <div>please login or create a new account</div>
-  }
-  
 }

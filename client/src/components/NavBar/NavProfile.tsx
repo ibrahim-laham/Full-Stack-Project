@@ -1,3 +1,6 @@
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -5,7 +8,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+
+import { RootState } from "../../redux/store";
 
 type Prop = {
   handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void;
@@ -20,30 +24,14 @@ export default function NavProfile({
   handleCloseUserMenu,
   settings,
 }: Prop) {
-  const avatars = [
-    {
-      alt: "man",
-      link: "https://static.vecteezy.com/system/resources/previews/002/002/263/large_2x/black-man-with-beard-avatar-character-free-vector.jpg",
-    },
-    {
-      alt: "man",
-      link: "https://static.vecteezy.com/system/resources/previews/002/002/403/large_2x/man-with-beard-avatar-character-isolated-icon-free-vector.jpg",
-    },
-    {
-      alt: "woman",
-      link: "https://static.vecteezy.com/system/resources/previews/004/607/794/large_2x/the-girl-smiles-office-worker-the-woman-with-white-hair-office-manager-designer-entrepreneur-blonde-illustration-flat-avatar-vector.jpg",
-    },
-    {
-      alt: "woman",
-      link: "https://static.vecteezy.com/system/resources/previews/001/993/889/large_2x/beautiful-latin-woman-avatar-character-icon-free-vector.jpg",
-    },
-  ];
-
+  const avatar = useSelector((state: RootState) => state.profile.userAvatar);
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="ibrahim" src={avatars[1].link} />
+          {avatar.map((item) => (
+            <Avatar alt="ibrahim" src={item.link} key={item.id} />
+          ))}
         </IconButton>
       </Tooltip>
       <Menu
@@ -63,8 +51,12 @@ export default function NavProfile({
         onClose={handleCloseUserMenu}
       >
         {settings.map((setting) => (
-          <Link to={setting.path} style={{textDecoration: "none", color: "inherit"}} >
-            <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+          <Link
+            key={setting.name}
+            to={setting.path}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <MenuItem onClick={handleCloseUserMenu}>
               <Typography textAlign="center">{setting.name}</Typography>
             </MenuItem>
           </Link>

@@ -3,17 +3,32 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+
+import ChangeInfoModal from "./ChangeInfoModal";
+import UserInfoBackdrop from "./UserInfoBackdrop";
 
 import { RootState } from "../../redux/store";
 import { UserData } from "../../types/type";
 import { userActions } from "../../redux/slices/user";
+import { GoldButton } from "../../App";
 
 export default function ChangeUserInfo() {
+  const [openModal, setOpenModal] = useState(false);
+  const handleModalOpen = () => setOpenModal(true);
+  const handleModalClose = () => setOpenModal(false);
+
+  const [openBackdrop, setOpenBackdrop] = useState(false);
+  const handleBackdropClose = () => {
+    setOpenBackdrop(false);
+  };
+  const handleBackdropOpen = () => {
+    setOpenBackdrop(true);
+  };
+
   const dispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.user.userData);
-  const { firstName,lastName, email, password, _id, __v } = userData;
+  const { firstName, lastName, email, password, _id, __v } = userData;
   const [userInput, setUserInput] = useState<UserData>({
     firstName: firstName,
     lastName: lastName,
@@ -36,18 +51,30 @@ export default function ChangeUserInfo() {
   const submitChangeHandler = async () => {
     const endpoint = `https://full-stack-project-backend-e3xz.onrender.com/users/${userData._id}`;
     const token = localStorage.getItem("Access_token");
-    await axios
-      .put(endpoint, userInput, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data.user);
-        dispatch(userActions.storeUserData(res.data.user));
-      })
-      .catch((error) => console.log(error));
+    let check = true;
+    Object.values(userInput).map((input) =>
+      input === "" ? (check = false) : null
+    );
+    if (check) {
+      handleBackdropOpen();
+      return await axios
+        .put(endpoint, userInput, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            dispatch(userActions.storeUserData(res.data.user));
+            handleBackdropClose();
+            return handleModalOpen();
+          }
+        })
+        .catch((error) => console.log(error));
+    } else {
+      return null;
+    }
   };
 
   return (
@@ -59,33 +86,29 @@ export default function ChangeUserInfo() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "40vh",
+        minHeight: "30vh",
       }}
       noValidate
       autoComplete="off"
     >
+      <TextField required label="Username" onChange={firstNameChangeHandler} />
+      <TextField required label="Email" onChange={emailChangeHandler} />
       <TextField
         required
-        id="outlined-required"
-        label="Username"
-        onChange={firstNameChangeHandler}
-      />
-      <TextField
-        required
-        id="outlined-required"
-        label="Email"
-        onChange={emailChangeHandler}
-      />
-      <TextField
-        required
-        id="outlined-password-input"
         label="password"
         type="password"
         autoComplete="current-password"
         onChange={passwordChangeHandler}
       />
-      <Button onClick={submitChangeHandler}>Submit Change</Button>
-      {/* add modal here */}
+      <GoldButton
+        onClick={submitChangeHandler}
+        variant="contained"
+        sx={{ backgroundColor: "goldRush.main" }}
+      >
+        Submit Change
+      </GoldButton>
+      <ChangeInfoModal open={openModal} handleClose={handleModalClose} />
+      <UserInfoBackdrop open={openBackdrop} handleClose={handleBackdropClose} />
     </Box>
   );
 }

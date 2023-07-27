@@ -1,15 +1,19 @@
+import { useSelector } from "react-redux";
+import { useState } from "react";
+
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
-import { useState } from "react";
+import Switch from "@mui/material/Switch";
+import { styled } from "@mui/material/styles";
+
 import Logo from "./Logo";
 import MenuXs from "./MenuXs";
 import LogoXs from "./LogoXs";
 import NavItems from "./NavItems";
 import NavProfile from "./NavProfile";
-import Switch from "@mui/material/Switch";
-import { styled } from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
+
+import { RootState } from "../../redux/store";
 
 type PaletteMode = "light" | "dark";
 
@@ -18,18 +22,25 @@ type Prop = {
   mode: string;
 };
 
-const pages = [
-  { name: "Home", path: "/" },
-  { name: "Albums", path: "/albums" },
-  { name: "Wishlist", path: "/wishlist" },
-  { name: "Cart", path: "/cart" },
-  { name: "Contact", path: "/" },
-  { name: "Sign in", path: "/signin" },
+const settings = [
+  { path: "/profile", name: "Profile" },
+  { path: "/logout", name: "Logout" },
 ];
 
-const settings = [{path: "/profile", name: "Profile"}, {path: "/account", name: "Account"},{path: "/Dashboard", name: "Dashboard"},{path: "/logout", name: "Logout"}];
-
 export default function Navbar({ mode, setMode }: Prop) {
+  const cartList = useSelector((state: RootState) => state.cart.cartList);
+  const wishList = useSelector((state: RootState) => state.wishList.wishList);
+  let cartNumber = cartList.length;
+  let wishNumber = wishList.length;
+
+  const pages = [
+    { name: "Home", path: "/" },
+    { name: "Albums", path: "/albums" },
+    { name: "Wishlist", path: "/wishlist", badgeNumber: wishNumber },
+    { name: "Cart", path: "/cart", badgeNumber: cartNumber },
+    { name: "Contact", path: "/" },
+    { name: "Sign in", path: "/signin" },
+  ];
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -120,12 +131,11 @@ export default function Navbar({ mode, setMode }: Prop) {
           />
           <LogoXs />
           <NavItems handleCloseNavMenu={handleCloseNavMenu} pages={pages} />
-          <IconButton onClick={themeColorHandler}>
-            <MaterialUISwitch
-              sx={{ m: 1 }}
-              checked={mode === "light" ? false : true}
-            />
-          </IconButton>
+          <MaterialUISwitch
+            sx={{ m: 1 }}
+            checked={mode === "light" ? false : true}
+            onClick={themeColorHandler}
+          />
           <NavProfile
             handleOpenUserMenu={handleOpenUserMenu}
             anchorElUser={anchorElUser}

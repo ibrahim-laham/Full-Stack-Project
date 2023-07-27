@@ -9,7 +9,7 @@ type Prop = {
   handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
   anchorElNav: HTMLElement | null;
   handleCloseNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
-  pages: {[key:string]:string}[]
+  pages: {[key:string]:string|number|undefined}[]
 };
 
 export default function MenuXs({

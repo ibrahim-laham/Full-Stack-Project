@@ -1,12 +1,11 @@
 import "./App.css";
+import { createContext, useMemo, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/NavBar/Navbar";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Routes, Route } from "react-router-dom";
+
 import HomePage from "./pages/HomePage";
 import AlbumsPage from "./pages/AlbumsPage";
-import { createContext, useMemo, useState } from "react";
-import Stack from "@mui/material/Stack";
 import AlbumDetails from "./pages/AlbumDetails";
 import SearchSpotify from "./components/DevTools/SearchSpotify";
 import RegisterPage from "./pages/RegisterPage";
@@ -15,6 +14,11 @@ import ProfilePage from "./pages/ProfilePage";
 import LogoutPage from "./pages/LogoutPage";
 import WishListPage from "./pages/WishListPage";
 import CartPage from "./pages/CartPage";
+
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled } from '@mui/material/styles';
+import Button, { ButtonProps } from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 type PaletteMode = "light" | "dark";
 declare module "@mui/material/styles" {
@@ -81,7 +85,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
           },
           goldRush: {
             light: "#ca9b38",
-            main: "#c08220",
+            main: "#d0901a",
             dark: "#b36916",
             contrastText: "#fff",
           },
@@ -96,7 +100,16 @@ const getDesignTokens = (mode: PaletteMode) => ({
   },
 });
 ;
+
+export const GoldButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  color: theme.palette.getContrastText("#870707"),
+  backgroundColor: "#d0901a",
+  '&:hover': {
+    backgroundColor: "#ca9b38",
+  },
+}));
 function App() {
+  
   const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
   const [mode, setMode] = useState<PaletteMode>("dark");

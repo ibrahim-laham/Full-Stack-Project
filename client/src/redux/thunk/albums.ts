@@ -25,7 +25,6 @@ export function getAlbumDetails(productId: string) {
         .then((res) =>
           dispatch(albumsActions.displayAlbumDetail(res.data.foundProduct))
         )
-        .catch((error) => console.log(error));
     } catch (error) {
       console.log(error);
     }
