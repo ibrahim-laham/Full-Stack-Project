@@ -33,7 +33,7 @@ export type ProductOrder = {
   price: number;
   image: { albumArt: string; vinyl: string };
   link: { spotify: string; youtube: string; wikipedia: string };
-  releaseDate: Date;
+  releaseDate: string;
   description: string;
   artistInfo: string;
   embedLink: string;
@@ -48,6 +48,6 @@ export type ProductOrder = {
 
 export type Order = {
   userId: string;
-  createdAt: Date;
+  createdAt: string;
   productList: ProductOrder[];
 };

@@ -34,9 +34,9 @@ export default function ShowCaseSlider() {
     <Paper style={{ padding: "40px" }} elevation={6}>
       <Slider {...settings}>
         {albumsData.map((item) => (
-          <div>
-            <AlbumCard album={item} />{" "}
-          </div>
+          
+            <AlbumCard album={item} key={item._id} />
+          
         ))}
       </Slider>
     </Paper>

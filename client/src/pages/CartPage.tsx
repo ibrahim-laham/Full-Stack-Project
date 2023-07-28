@@ -8,7 +8,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
 import { RootState, AppDispatch } from "../redux/store";
-import { createOrder } from "../redux/thunk/order";
+import { createOrder, getUserOrders } from "../redux/thunk/order";
 import { cartActions } from "../redux/slices/cart";
 import { Link } from "react-router-dom";
 
@@ -21,6 +21,7 @@ export default function CartPage() {
 
   function checkOut() {
     appDispatch(createOrder(userId, cartList));
+    appDispatch(getUserOrders(userId as string));
     dispatch(cartActions.resetCart());
   }
 
@@ -68,8 +69,8 @@ export default function CartPage() {
         </Typography>
         <Grid container spacing={2} columns={1} sx={{ maxWidth: "70%" }}>
           {cartList.map((item) => (
-            <Grid item md={12} lg={12} sx={{ overflow: "hidden" }}>
-              <CartItem item={item} key={item._id} />
+            <Grid item md={12} lg={12} sx={{ overflow: "hidden" }} key={item._id}>
+              <CartItem item={item}  />
             </Grid>
           ))}
         </Grid>

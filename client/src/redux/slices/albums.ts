@@ -47,7 +47,7 @@ const albumsSlice = createSlice({
     },
     searchAlbums: (state, action: PayloadAction<string>) => {
       state.albums = state.albums.filter(
-        (album) => action.payload.toLowerCase() === album.title.toLowerCase()
+        (album) => album.title.toLowerCase().includes(action.payload.toLowerCase()) 
       );
     },
     sortOrder: (state, action: PayloadAction<"asc" | "desc">) => {

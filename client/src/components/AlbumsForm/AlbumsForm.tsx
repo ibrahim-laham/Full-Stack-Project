@@ -29,6 +29,7 @@ export default function AlbumsForm({userInput,setUserInput}:Prop) {
         id="filled-search"
         label="Search Album"
         type="search"
+        value={userInput}
         variant="filled"
         onChange={searchChangeHandler}
         sx={{marginRight: "5%"}}

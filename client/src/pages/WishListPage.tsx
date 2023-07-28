@@ -58,8 +58,8 @@ export default function WishListPage() {
             spacing={2}
           >
             {wishList.map((wish) => (
-              <Grid item md={8}>
-                <WishItem wish={wish} key={wish._id} />
+              <Grid item md={8} key={wish._id}>
+                <WishItem wish={wish}  />
               </Grid>
             ))}
           </Grid>

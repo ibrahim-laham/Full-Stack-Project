@@ -2,7 +2,7 @@ import axios from "axios";
 import { AppDispatch } from "../store";
 import { ordersActions } from "../slices/orders";
 
-import { Album } from "../../types/type";
+import { Album, Order } from "../../types/type";
 
 export function createOrder(userId: string, cartList: Album[]) {
   const url = `https://full-stack-project-backend-e3xz.onrender.com/orders/${userId}`;
@@ -33,7 +33,9 @@ export function getUserOrders(userId: string) {
         },
       })
       .then((res) => {
-        return dispatch(ordersActions.getOrderList(res?.data[0]));
+        console.log(res.data)
+        return res.data.map((item:Order) => dispatch(ordersActions.getOrderList(item)))
+         ;
       })
       .catch((error) => console.log(error));
   };
