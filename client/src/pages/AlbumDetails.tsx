@@ -4,10 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../redux/store";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 
 import { getAlbumDetails } from "../redux/thunk/albums";
 import AlbumDetailsCard from "../components/Albums/AlbumDetailsCard";
 import AlbumSlider from "../components/Albums/AlbumSlider";
+import Grid from "@mui/material/Grid";
 
 export default function AlbumDetails() {
   const param = useParams();
@@ -26,29 +28,56 @@ export default function AlbumDetails() {
       sx={{
         display: "flex",
         justifyContent: "center",
-        height: "93vh",
+        minHeight: "93vh",
         alignItems: "center",
+        padding: "5%",
       }}
     >
       {album?.map((item) => (
         <Paper
           elevation={12}
-          sx={{ height: "75vh", width: "70%", display: "flex" }}
+          sx={{
+            minHeight: "75vh",
+            maxHeight: { xs: "auto", md: "90vh" },
+            width: "60vw",
+            display: "flex",
+          }}
           key={item._id}
         >
-          <Stack sx={{ height: "100%" }}>
-            <AlbumDetailsCard item={item} />
-            <iframe
-              title="spotify "
-              style={{ borderRadius: "12px", height: "30%", border: "0px" }}
-              src={item.embedLink}
-              width="100%"
-              height="30%"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-            ></iframe>
+          <Stack direction="row" sx={{ width: "100%" }}>
+            {" "}
+            <Grid container sx={{ height: "100%" }}>
+              <Grid item xs={12} lg={12} sx={{ minHeight: "50%" }}>
+                <AlbumDetailsCard item={item} />
+              </Grid>
+              <Grid item xs={12} lg={12} sx={{ position: "relative" }}>
+                <Box
+                  component="div"
+                  sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  <iframe
+                    title="spotify "
+                    style={{
+                      borderRadius: "12px",
+                      height: "100%",
+                      border: "0px",
+                    }}
+                    src={item.embedLink}
+                    width="100%"
+                    height="100%"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                  ></iframe>
+                </Box>
+              </Grid>
+            </Grid>
+            <AlbumSlider item={item} />
           </Stack>
-          <AlbumSlider item={item} />
         </Paper>
       ))}
     </Paper>

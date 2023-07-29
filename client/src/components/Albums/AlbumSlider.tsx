@@ -20,13 +20,21 @@ export default function AlbumSlider({ item }: Prop) {
 
   return (
     <Box
-      sx={{
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-        display: "flex",
-        minWidth: "4%",
-        maxWidth: "50%"
-      }}
+      sx={
+        checked
+          ? {
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "flex",
+              maxWidth: "45%",
+            }
+          : {
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "flex",
+              maxWidth: "5%",
+            }
+      }
     >
       <Button
         size="small"

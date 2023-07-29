@@ -17,15 +17,14 @@ type Prop = {
 };
 
 export default function albumDetailsCard({ item }: Prop) {
-  console.log(item);
   return (
-    <Card sx={{ width: "100%", height: "70%",position: "relative" }}>
+    <Card sx={{ width: "100%" ,height: "100%" }}>
       <CardMedia
         sx={{ height: "50%" }}
         image={item.image?.albumArt}
         title={item.title}
       />
-      <CardContent>
+      <CardContent >
         <Typography gutterBottom variant="h5" component="div">
           {item.title}
         </Typography>
@@ -33,7 +32,7 @@ export default function albumDetailsCard({ item }: Prop) {
           {item.description}
         </Typography>
       </CardContent>
-      <CardActions sx={{position: "absolute", bottom: "5%"}} >
+      <CardActions  >
         <IconButton>
           <AddShoppingCartIcon />
         </IconButton>

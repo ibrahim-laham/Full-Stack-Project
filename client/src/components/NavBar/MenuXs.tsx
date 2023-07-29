@@ -1,9 +1,12 @@
+import { Link } from "react-router-dom";
+
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
+
 
 type Prop = {
   handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
@@ -50,7 +53,8 @@ export default function MenuXs({
       >
         {pages.map((page) => (
           <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-            <Typography textAlign="center">{page.name}</Typography>
+            <Link to={`${page.path}`}>
+            <Typography textAlign="center">{page.name}</Typography></Link>
           </MenuItem>
         ))}
       </Menu>

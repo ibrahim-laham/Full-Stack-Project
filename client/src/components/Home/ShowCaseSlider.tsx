@@ -19,24 +19,47 @@ export default function ShowCaseSlider() {
   }, [appDispatch]);
   const settings = {
     dots: true,
+    className: "gap: 50px",
     autoplay: true,
     autoplaySpeed: 2000,
     speed: 700,
-    slidesToShow: 4,
-    slidesToScroll: 1,
+    adaptiveHeight: true,
     infinite: true,
     pauseOnFocus: true,
-    draggable: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
     centerMode: true,
+    draggable: true,
     initialSlide: 2,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   return (
-    <Paper style={{ padding: "40px" }} elevation={6}>
+    <Paper style={{ padding: "2%" }} elevation={6}>
       <Slider {...settings}>
         {albumsData.map((item) => (
-          
-            <AlbumCard album={item} key={item._id} />
-          
+          <AlbumCard album={item} key={item._id} />
         ))}
       </Slider>
     </Paper>
