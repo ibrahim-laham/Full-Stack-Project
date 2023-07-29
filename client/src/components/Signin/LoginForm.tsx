@@ -1,13 +1,12 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
-
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Copyright } from "@mui/icons-material";
 import Grid from "@mui/material/Grid";
@@ -17,6 +16,8 @@ import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
+import BackdropComp from "../Profile/BackdropComp"
+
 import { userActions } from "../../redux/slices/user";
 
 type UserInput = {
@@ -25,6 +26,14 @@ type UserInput = {
 };
 
 export default function LoginForm() {
+  const [error, setError] = useState(false);
+  const [openBackdrop, setOpenBackdrop] = useState(false);
+  const handleBackdropClose = () => {
+    setOpenBackdrop(false);
+  };
+  const handleBackdropOpen = () => {
+    setOpenBackdrop(true);
+  };
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userInput, setUserInput] = useState<UserInput>({
@@ -47,22 +56,32 @@ export default function LoginForm() {
 
   const loginHandler = async () => {
     const endpoint = "https://full-stack-project-backend-e3xz.onrender.com/users/login";
-
+    handleBackdropOpen();
     await axios
       .post(endpoint, userInput)
       .then((res) => {
+        handleBackdropClose()
+        res.status === 200? setError(false): setError(true);
         localStorage.setItem("Access_token", res.data.token);
         setTimeout(clearStorage, 3600000);
         localStorage.setItem("userId", res.data.userData._id);
         dispatch(userActions.storeUserData(res.data.userData));
         navigate("/profile");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        handleBackdropClose()
+        console.log(error)
+        setError(true)
+      });
     setUserInput({ email: "", password: "" });
   };
 
+  
+
+
   return (
     <Container component="main" maxWidth="xs">
+      <BackdropComp open={openBackdrop} handleClose={handleBackdropClose} />
       <CssBaseline />
       <Box
         sx={{
@@ -89,6 +108,8 @@ export default function LoginForm() {
             autoComplete="email"
             autoFocus
             onChange={storeEmail}
+            error={error}
+            
           />
           <TextField
             margin="normal"
@@ -100,6 +121,8 @@ export default function LoginForm() {
             id="password"
             autoComplete="current-password"
             onChange={storePassword}
+            error={error}
+            helperText={error? "User name or password is wrong": ""}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

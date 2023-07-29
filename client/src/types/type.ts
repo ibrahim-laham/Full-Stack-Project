@@ -50,4 +50,5 @@ export type Order = {
   userId: string;
   createdAt: string;
   productList: ProductOrder[];
+  _id: "string";
 };

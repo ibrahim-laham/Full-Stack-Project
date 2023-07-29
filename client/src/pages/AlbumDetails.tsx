@@ -38,8 +38,9 @@ export default function AlbumDetails() {
           elevation={12}
           sx={{
             minHeight: "75vh",
-            maxHeight: { xs: "auto", md: "90vh" },
-            width: "60vw",
+            maxHeight: { xs: "auto", md: "85vh" },
+            minWidth: "60vw",
+            maxWidth: "75%",
             display: "flex",
           }}
           key={item._id}
@@ -47,24 +48,15 @@ export default function AlbumDetails() {
           <Stack direction="row" sx={{ width: "100%" }}>
             {" "}
             <Grid container sx={{ height: "100%" }}>
-              <Grid item xs={12} lg={12} sx={{ minHeight: "50%" }}>
+              <Grid item xs={12} lg={12} sx={{marginBottom: "auto"}}>
                 <AlbumDetailsCard item={item} />
               </Grid>
-              <Grid item xs={12} lg={12} sx={{ position: "relative" }}>
-                <Box
-                  component="div"
-                  sx={{
-                    position: "absolute",
-                    bottom: 0,
-                    width: "100%",
-                    height: "100%",
-                  }}
-                >
+              <Grid item xs={12} lg={12}>
+                
                   <iframe
                     title="spotify "
                     style={{
                       borderRadius: "12px",
-                      height: "100%",
                       border: "0px",
                     }}
                     src={item.embedLink}
@@ -72,8 +64,8 @@ export default function AlbumDetails() {
                     height="100%"
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy"
-                  ></iframe>
-                </Box>
+                  />
+                
               </Grid>
             </Grid>
             <AlbumSlider item={item} />

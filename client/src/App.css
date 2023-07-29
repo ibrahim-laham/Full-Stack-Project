@@ -25,3 +25,8 @@ Link {
   text-decoration:none;
   color: inherit;
 }
+
+.slick-slider{
+  /* display: flex;
+  justify-content:space-evenly; */
+}

@@ -12,6 +12,7 @@ type Prop = {
 };
 
 export default function UserOrders({ userOrders }: Prop) {
+  
   if (userOrders.length === 0) {
     return (
       <Paper elevation={12} sx={{ padding: "5%", minHeight: "32vh" }}>
@@ -23,8 +24,8 @@ export default function UserOrders({ userOrders }: Prop) {
   } else {
     return (
       <Paper elevation={12} sx={{ padding: "5%", minHeight: "30vh" }}>
-        {userOrders.map((order) => (
-          <Stack sx={{ width: "100%" }} spacing={2} key={order.createdAt} >
+        {userOrders.map((order, index) => (
+          <Stack sx={{ width: "100%" }} spacing={2} key={order._id} >
             <Typography variant="h5" sx={{ width: "90%" }}>
               {" "}
               ordered at :

@@ -16,8 +16,8 @@ const ordersSlice = createSlice({
   name: "orders",
   initialState:ordersState,
   reducers: {
-    getOrderList: (state, action: PayloadAction<Order>) => {
-      state.orders.push(action.payload)
+    getOrderList: (state, action: PayloadAction<Order[]>) => {
+      state.orders = action.payload
     }
   }
 })

@@ -33,9 +33,7 @@ export function getUserOrders(userId: string) {
         },
       })
       .then((res) => {
-        console.log(res.data)
-        return res.data.map((item:Order) => dispatch(ordersActions.getOrderList(item)))
-         ;
+        return dispatch(ordersActions.getOrderList(res.data));
       })
       .catch((error) => console.log(error));
   };

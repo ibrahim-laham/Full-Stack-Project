@@ -28,10 +28,9 @@ export default function ProfilePage() {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    appDispatch(getUserDetails(userId as string));
     appDispatch(getUserOrders(userId as string));
+    appDispatch(getUserDetails(userId as string));
   }, [appDispatch, userId]);
-
   if (token) {
     return (
       <Paper

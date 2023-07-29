@@ -32,7 +32,7 @@ export default function AlbumSlider({ item }: Prop) {
               overflow: "hidden",
               textOverflow: "ellipsis",
               display: "flex",
-              maxWidth: "5%",
+              maxWidth: "4%",
             }
       }
     >

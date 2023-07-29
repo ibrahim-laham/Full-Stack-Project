@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "../../redux/store";
 import AlbumCard from "../Albums/AlbumCard";
 import { getAlbumsData } from "../../redux/thunk/albums";
 import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
 
 export default function ShowCaseSlider() {
   const albumsData = useSelector((state: RootState) => state.albums.albums);
@@ -19,7 +20,6 @@ export default function ShowCaseSlider() {
   }, [appDispatch]);
   const settings = {
     dots: true,
-    className: "gap: 50px",
     autoplay: true,
     autoplaySpeed: 2000,
     speed: 700,
@@ -57,7 +57,7 @@ export default function ShowCaseSlider() {
   };
   return (
     <Paper style={{ padding: "2%" }} elevation={6}>
-      <Slider {...settings}>
+      <Slider {...settings} className="slick-slider" >
         {albumsData.map((item) => (
           <AlbumCard album={item} key={item._id} />
         ))}

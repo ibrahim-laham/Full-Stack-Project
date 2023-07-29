@@ -20,11 +20,11 @@ export default function albumDetailsCard({ item }: Prop) {
   return (
     <Card sx={{ width: "100%" ,height: "100%" }}>
       <CardMedia
-        sx={{ height: "50%" }}
+        sx={{minHeight:"30vh"}}
         image={item.image?.albumArt}
         title={item.title}
       />
-      <CardContent >
+      <CardContent sx={{margin: "auto"}} >
         <Typography gutterBottom variant="h5" component="div">
           {item.title}
         </Typography>
@@ -32,7 +32,7 @@ export default function albumDetailsCard({ item }: Prop) {
           {item.description}
         </Typography>
       </CardContent>
-      <CardActions  >
+      <CardActions  sx={{display: {xs : "flex"}, flexDirection: {xs: "column", md: "row"}}} >
         <IconButton>
           <AddShoppingCartIcon />
         </IconButton>

@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 import ChangeInfoModal from "./ChangeInfoModal";
-import UserInfoBackdrop from "./UserInfoBackdrop";
+import BackdropComp from "./BackdropComp";
 
 import { RootState } from "../../redux/store";
 import { UserData } from "../../types/type";
@@ -108,7 +108,7 @@ export default function ChangeUserInfo() {
         Submit Change
       </GoldButton>
       <ChangeInfoModal open={openModal} handleClose={handleModalClose} />
-      <UserInfoBackdrop open={openBackdrop} handleClose={handleBackdropClose} />
+      <BackdropComp open={openBackdrop} handleClose={handleBackdropClose} />
     </Box>
   );
 }
