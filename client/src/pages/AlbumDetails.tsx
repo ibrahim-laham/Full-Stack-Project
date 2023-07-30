@@ -37,8 +37,8 @@ export default function AlbumDetails() {
         <Paper
           elevation={12}
           sx={{
-            minHeight: "75vh",
-            maxHeight: { xs: "auto", md: "85vh" },
+            minHeight: "60vh",
+            maxHeight: { xs: "auto", md: "75vh" },
             minWidth: "60vw",
             maxWidth: "75%",
             display: "flex",
@@ -56,6 +56,7 @@ export default function AlbumDetails() {
                   <iframe
                     title="spotify "
                     style={{
+                      height: "100%",
                       borderRadius: "12px",
                       border: "0px",
                     }}

@@ -33,14 +33,13 @@ export default function AlbumCard({ album }: Prop) {
   };
 
   const cartHandler = () => {
-    dispatch(cartActions.addToCartList({...album, quantity: 1}));
+    dispatch(cartActions.addToCartList({ ...album, quantity: 1 }));
     cartList.map((item) => {
       if (item._id === album._id) {
         return dispatch(cartActions.removeFormCartList(album));
       } else return null;
     });
   };
-
   let favoriteColor = "white";
   let cartColor = "white";
 
@@ -62,7 +61,6 @@ export default function AlbumCard({ album }: Prop) {
     });
   }
   checkColor();
-
   return (
     <Card
       sx={{
@@ -104,15 +102,21 @@ export default function AlbumCard({ album }: Prop) {
             Learn More
           </Button>
         </Link>
+        
+          <Button
+            size="small"
+            
+            onClick={favoriteHandler}
+          >
+            <FavoriteIcon style={{ color: favoriteColor }} />{" "}
+          </Button>
+       
+
         <Button
           size="small"
-          sx={{ color: favoriteColor }}
-          onClick={favoriteHandler}
+           onClick={cartHandler}
         >
-          <FavoriteIcon />{" "}
-        </Button>
-        <Button size="small" sx={{ color: cartColor }} onClick={cartHandler}>
-          <ShoppingCartIcon />{" "}
+          <ShoppingCartIcon  style={{ color: cartColor }}/>{" "}
         </Button>
         <Typography sx={{ marginLeft: "5px" }}>
           &#x20AC;{album.price}

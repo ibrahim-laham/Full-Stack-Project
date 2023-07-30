@@ -33,6 +33,7 @@ export default function AlbumsForm({userInput,setUserInput}:Prop) {
         variant="filled"
         onChange={searchChangeHandler}
         sx={{marginRight: "5%"}}
+        autoFocus={true}
       />
       <Button onClick={searchClickHandler} size="large" variant="contained">Search</Button>
     </Box>

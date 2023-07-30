@@ -3,7 +3,9 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { Album } from "../../types/type";
 
- type WishList = {
+
+
+type WishList = {
   wishList: Album[];
 };
 

@@ -24,7 +24,7 @@ export default function AlbumsPage() {
   const appDispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     appDispatch(getAlbumsData());
-  }, [appDispatch]);
+  }, [appDispatch, userInput]);
 
   function ToggleOrder() {
     ordering === "asc"
@@ -33,9 +33,7 @@ export default function AlbumsPage() {
     dispatch(albumsActions.sortAlbums());
   }
 
-  if (userInput === "") {
-    appDispatch(getAlbumsData());
-  }
+  
 
   return (
     <Paper

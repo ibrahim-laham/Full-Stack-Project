@@ -1,3 +1,5 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -7,24 +9,71 @@ import Typography from "@mui/material/Typography";
 import { BsSpotify, BsYoutube } from "react-icons/bs";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import {FaWikipediaW} from "react-icons/fa"
-import {AiOutlineStar} from "react-icons/ai"
+import { FaWikipediaW } from "react-icons/fa";
+import { AiOutlineStar } from "react-icons/ai";
 
 import { Album } from "../../types/type";
+
+import { RootState } from "../../redux/store";
+import { wishListActions } from "../../redux/slices/wishList";
+import { cartActions } from "../../redux/slices/cart";
 
 type Prop = {
   item: Album;
 };
 
-export default function albumDetailsCard({ item }: Prop) {
+export default function AlbumDetailsCard({ item }: Prop) {
+  const dispatch = useDispatch();
+  const wishList = useSelector((state: RootState) => state.wishList.wishList);
+  const cartList = useSelector((state: RootState) => state.cart.cartList);
+
+  const favoriteHandler = () => {
+    dispatch(wishListActions.addToWishList(item));
+    wishList.map((wish) => {
+      if (wish._id === item._id) {
+        return dispatch(wishListActions.removeFormWishList(item));
+      } else return null;
+    });
+  };
+
+  const cartHandler = () => {
+    dispatch(cartActions.addToCartList({ ...item, quantity: 1 }));
+    cartList.map((cartItem) => {
+      if (cartItem._id === item._id) {
+        return dispatch(cartActions.removeFormCartList(item));
+      } else return null;
+    });
+  };
+  let favoriteColor = "white";
+  let cartColor = "white";
+
+  function checkColor() {
+    wishList.map((wish) => {
+      if (wish._id === item._id) {
+        return (favoriteColor = "gold");
+      } else {
+        return null;
+      }
+    });
+
+    cartList.map((cartItem) => {
+      if (cartItem._id === item._id) {
+        return (cartColor = "gold");
+      } else {
+        return null;
+      }
+    });
+  }
+  checkColor();
   return (
-    <Card sx={{ width: "100%" ,height: "100%" }}>
+    <Card sx={{ width: "100%", height: "100%" }}>
       <CardMedia
-        sx={{minHeight:"30vh"}}
+        component="img"
+        sx={{ minHeight: "30vh" }}
         image={item.image?.albumArt}
         title={item.title}
       />
-      <CardContent sx={{margin: "auto"}} >
+      <CardContent sx={{ margin: "auto" }}>
         <Typography gutterBottom variant="h5" component="div">
           {item.title}
         </Typography>
@@ -32,12 +81,17 @@ export default function albumDetailsCard({ item }: Prop) {
           {item.description}
         </Typography>
       </CardContent>
-      <CardActions  sx={{display: {xs : "flex"}, flexDirection: {xs: "column", md: "row"}}} >
-        <IconButton>
-          <AddShoppingCartIcon />
+      <CardActions
+        sx={{
+          display: { xs: "flex" },
+          flexDirection: { xs: "column", md: "row" },
+        }}
+      >
+        <IconButton onClick={cartHandler}>
+          <AddShoppingCartIcon style={{ color: cartColor }} />
         </IconButton>
-        <IconButton>
-          <FavoriteIcon />
+        <IconButton onClick={favoriteHandler}>
+          <FavoriteIcon style={{ color: favoriteColor }} />
         </IconButton>
         <IconButton>
           <a href={item.link?.spotify} target="_blank" rel="noreferrer">
@@ -50,13 +104,13 @@ export default function albumDetailsCard({ item }: Prop) {
           </a>{" "}
         </IconButton>
         <IconButton>
-          <a href={item.link?.wikipedia} target="_blank" rel="noreferrer"  >
-            <FaWikipediaW style={{color: "white"}}/>
+          <a href={item.link?.wikipedia} target="_blank" rel="noreferrer">
+            <FaWikipediaW style={{ color: "white" }} />
           </a>
         </IconButton>
         <IconButton>
           <a href={item.rating?.pitchforkLink} target="_blank" rel="noreferrer">
-            <AiOutlineStar style={{color: "gold"}}/>
+            <AiOutlineStar style={{ color: "gold" }} />
           </a>
         </IconButton>
       </CardActions>

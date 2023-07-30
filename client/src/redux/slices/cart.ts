@@ -3,6 +3,8 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { Album } from "../../types/type";
 
+
+
 type CartState = {
   cartList: Album[];
   total: number;
