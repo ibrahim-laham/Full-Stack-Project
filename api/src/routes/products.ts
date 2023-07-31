@@ -1,3 +1,6 @@
+import { Router } from "express";
+import passport from "passport";
+
 import {
   createProduct,
   deleteProduct,
@@ -5,15 +8,29 @@ import {
   getProduct,
   updateProduct,
 } from "../controllers/products";
-
-import { Router } from "express";
+import adminCheck from "../middlewares/adminCheck";
 
 const router = Router();
 
-router.post("/", createProduct);
 router.get("/", getProduct);
-router.put("/:id", updateProduct);
 router.get("/:id", getProductById);
-router.delete("/:id", deleteProduct);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  adminCheck,
+  createProduct
+);
+router.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  adminCheck,
+  updateProduct
+);
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  adminCheck,
+  deleteProduct
+);
 
 export default router;

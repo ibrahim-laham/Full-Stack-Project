@@ -8,7 +8,10 @@ export function getAlbumsData() {
     try {
       await axios
         .get(url)
-        .then((res) => dispatch(albumsActions.displayAlbums(res.data.product)))
+        .then((res) => {
+          dispatch(albumsActions.displayAlbums(res.data.product))
+          dispatch(albumsActions.isLoading())
+        })
         .catch((error) => console.log(error));
     } catch (error) {
       console.log(error);

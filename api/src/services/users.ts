@@ -19,11 +19,7 @@ const updateUser = async (
   userId: string,
   update: Partial<UserDocument>
 ): Promise<UserDocument> => {
-  const user = await User.findByIdAndUpdate(
-    userId,
-    update,
-    { new: true }
-  );
+  const user = await User.findByIdAndUpdate(userId, update, { new: true });
   if (!user) {
     throw new NotFoundError(`could not find the user with the _id ${userId}`);
   }
@@ -31,11 +27,36 @@ const updateUser = async (
 };
 
 const getUserById = async (userId: string): Promise<UserDocument> => {
-  const user = await User.findById(userId)
+  const user = await User.findById(userId);
   if (!user) {
-    throw new NotFoundError(`could not find the user with the _id ${userId}`)
+    throw new NotFoundError(`could not find the user with the _id ${userId}`);
   }
   return user;
-} 
+};
 
-export default { createUser, findUserByEmail, updateUser, getUserById};
+export const getAllUsers = async (): Promise<UserDocument[]> => {
+  return await User.find();
+};
+
+export const makeAdmin = async (userId: string) => {
+  const user = await User.findById(userId);
+  if (user) {
+    if (user.role === "admin") {
+      user.role = "user";
+    } else {
+      user.role = "admin";
+    }
+    await updateUser(userId, user);
+  } else {
+    throw new NotFoundError(`could not find the user with the id ${userId}`);
+  }
+};
+
+export default {
+  getAllUsers,
+  createUser,
+  findUserByEmail,
+  updateUser,
+  getUserById,
+  makeAdmin
+};

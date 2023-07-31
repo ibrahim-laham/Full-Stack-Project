@@ -5,6 +5,7 @@ export type UserDocument = Document & {
   lastName: string;
   email: string;
   password: string;
+  role: "user" | "admin";
 };
 
 const userSchema = new mongoose.Schema({
@@ -25,6 +26,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  }
 });
 
 export default mongoose.model<UserDocument>("User", userSchema);

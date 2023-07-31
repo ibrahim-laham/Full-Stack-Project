@@ -7,6 +7,7 @@ type AlbumsState = {
   albums: Album[];
   album: Album[];
   ordering: "asc" | "desc";
+  loading: boolean;
 };
 
 const albumsState: AlbumsState = {
@@ -33,6 +34,7 @@ const albumsState: AlbumsState = {
     },
   ],
   ordering: "asc",
+  loading: true,
 };
 
 const albumsSlice = createSlice({
@@ -58,6 +60,9 @@ const albumsSlice = createSlice({
         ? (state.albums = state.albums.sort((a, b) => a.price - b.price))
         : (state.albums = state.albums.sort((a, b) => b.price - a.price));
     },
+    isLoading: (state) => {
+      state.loading = false
+    }
   },
 });
 

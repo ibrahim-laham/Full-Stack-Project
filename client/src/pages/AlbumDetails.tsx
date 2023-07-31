@@ -46,7 +46,7 @@ export default function AlbumDetails() {
         >
           <Stack direction="row" sx={{ width: "100%",  minHeight: "60vh" }}>
             {" "}
-            <Grid container  sx={{ minHeight: "100%" ,marginBottom: "auto"}}>
+            <Grid container  sx={{ minHeight: "100%" ,margin: "auto"}}>
               <Grid item xs={12} lg={12} sx={{minHeight: "80%"}}>
                 <AlbumDetailsCard item={item} />
               </Grid>

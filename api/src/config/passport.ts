@@ -14,7 +14,8 @@ export const jwtStrategy = new JwtStrategy(
   },
   async (payload, done) => {
     const userEmail = payload.email;
-    const foundUser = usersServices.findUserByEmail(userEmail);
-    done(null, foundUser);
+    const user = usersServices.findUserByEmail(userEmail);
+    done(null, user);
   }
 );
+

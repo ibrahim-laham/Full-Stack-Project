@@ -6,7 +6,10 @@ import {
   getUserById,
   loginWithPassword,
   updateUser,
+  getAllUsers,
+  makeAdmin,
 } from "../controllers/users";
+import adminCheck from "../middlewares/adminCheck";
 
 const router = Router();
 
@@ -17,6 +20,22 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   updateUser
 );
-router.get("/:id",passport.authenticate("jwt", { session: false }), getUserById);
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  getUserById
+);
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  adminCheck,
+  getAllUsers
+);
+router.put(
+  "/:userId/make-admin",
+  passport.authenticate("jwt", { session: false }),
+  adminCheck,
+  makeAdmin
+);
 
 export default router;

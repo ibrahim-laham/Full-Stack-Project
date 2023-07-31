@@ -13,7 +13,7 @@ export const createUser = async (
   next: NextFunction
 ) => {
   try {
-    const { firstName,lastName, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -100,17 +100,47 @@ export const updateUser = async (
   }
 };
 
-export const getUserById = async (req: Request,
+export const getUserById = async (
+  req: Request,
   res: Response,
-  next: NextFunction) => {
-    try {
-      const userId = req.params.id;
-      const user = await usersServices.getUserById(userId);
-      res.status(200).json({
-        message: "found user by id",
-        user: user,
-      })
-    }catch (error) {
-      next(error)
-    }
-}
+  next: NextFunction
+) => {
+  try {
+    const userId = req.params.id;
+    const user = await usersServices.getUserById(userId);
+    res.status(200).json({
+      message: "found user by id",
+      user: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userList = await usersServices.getAllUsers();
+    res.status(200).json(userList);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const makeAdmin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.params.userId;
+    await usersServices.makeAdmin(userId);
+
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
