@@ -25,40 +25,19 @@ export default function AlbumCard({ album }: Prop) {
 
   const favoriteHandler = () => {
     dispatch(wishListActions.addToWishList(album));
-    wishList.map((wish) => {
-      if (wish._id === album._id) {
-        return dispatch(wishListActions.removeFormWishList(album));
-      } else return null;
-    });
   };
 
   const cartHandler = () => {
     dispatch(cartActions.addToCartList({ ...album, quantity: 1 }));
-    cartList.map((item) => {
-      if (item._id === album._id) {
-        return dispatch(cartActions.removeFormCartList(album));
-      } else return null;
-    });
   };
   let favoriteColor = "white";
   let cartColor = "white";
 
   function checkColor() {
-    wishList.map((wish) => {
-      if (wish._id === album._id) {
-        return (favoriteColor = "gold");
-      } else {
-        return null;
-      }
-    });
-
-    cartList.map((item) => {
-      if (item._id === album._id) {
-        return (cartColor = "gold");
-      } else {
-        return null;
-      }
-    });
+    const isInWishList = wishList.find((item) => item._id === album._id);
+    const isInCartList = cartList.find((item) => item._id === album._id);
+    isInWishList? favoriteColor= "gold" : favoriteColor= "white";
+    isInCartList? cartColor= "gold" : cartColor= "white";
   }
   checkColor();
   return (

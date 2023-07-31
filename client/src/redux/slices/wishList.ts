@@ -3,8 +3,6 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { Album } from "../../types/type";
 
-
-
 type WishList = {
   wishList: Album[];
 };
@@ -18,8 +16,10 @@ const wishListSlice = createSlice({
   initialState: wishListState,
   reducers: {
     addToWishList: (state, action: PayloadAction<Album>) => {
+      let isItemInWishList = false;
       state.wishList.map((item) => {
         if (item._id === action.payload._id) {
+          isItemInWishList = true;
           return (state.wishList = state.wishList.filter(
             (item) => item._id !== action.payload._id
           ));
@@ -27,7 +27,9 @@ const wishListSlice = createSlice({
           return null;
         }
       });
-      state.wishList.push(action.payload);
+      if (!isItemInWishList) {
+        state.wishList.push(action.payload);
+      } 
     },
     removeFormWishList: (state, action: PayloadAction<Album>) => {
       state.wishList = state.wishList.filter(

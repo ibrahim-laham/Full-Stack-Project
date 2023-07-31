@@ -29,51 +29,29 @@ export default function AlbumDetailsCard({ item }: Prop) {
 
   const favoriteHandler = () => {
     dispatch(wishListActions.addToWishList(item));
-    wishList.map((wish) => {
-      if (wish._id === item._id) {
-        return dispatch(wishListActions.removeFormWishList(item));
-      } else return null;
-    });
   };
 
   const cartHandler = () => {
     dispatch(cartActions.addToCartList({ ...item, quantity: 1 }));
-    cartList.map((cartItem) => {
-      if (cartItem._id === item._id) {
-        return dispatch(cartActions.removeFormCartList(item));
-      } else return null;
-    });
   };
   let favoriteColor = "white";
   let cartColor = "white";
 
   function checkColor() {
-    wishList.map((wish) => {
-      if (wish._id === item._id) {
-        return (favoriteColor = "gold");
-      } else {
-        return null;
-      }
-    });
-
-    cartList.map((cartItem) => {
-      if (cartItem._id === item._id) {
-        return (cartColor = "gold");
-      } else {
-        return null;
-      }
-    });
+    const isInWishList = wishList.find((album) => album._id === item._id);
+    const isInCartList = cartList.find((album) => album._id === item._id);
+    isInWishList ? (favoriteColor = "gold") : (favoriteColor = "white");
+    isInCartList ? (cartColor = "gold") : (cartColor = "white");
   }
   checkColor();
   return (
     <Card sx={{ width: "100%", height: "100%" }}>
       <CardMedia
-        component="img"
         sx={{ minHeight: "30vh" }}
         image={item.image?.albumArt}
         title={item.title}
       />
-      <CardContent sx={{ margin: "auto" }}>
+      <CardContent >
         <Typography gutterBottom variant="h5" component="div">
           {item.title}
         </Typography>
@@ -93,26 +71,26 @@ export default function AlbumDetailsCard({ item }: Prop) {
         <IconButton onClick={favoriteHandler}>
           <FavoriteIcon style={{ color: favoriteColor }} />
         </IconButton>
-        <IconButton>
-          <a href={item.link?.spotify} target="_blank" rel="noreferrer">
+        <a href={item.link?.spotify} target="_blank" rel="noreferrer">
+          <IconButton>
             <BsSpotify style={{ color: "springgreen" }} />
-          </a>{" "}
-        </IconButton>
-        <IconButton>
-          <a href={item.link?.youtube} target="_blank" rel="noreferrer">
+          </IconButton>
+        </a>{" "}
+        <a href={item.link?.youtube} target="_blank" rel="noreferrer">
+          <IconButton>
             <BsYoutube style={{ color: "red" }} />
-          </a>{" "}
-        </IconButton>
-        <IconButton>
-          <a href={item.link?.wikipedia} target="_blank" rel="noreferrer">
+          </IconButton>
+        </a>{" "}
+        <a href={item.link?.wikipedia} target="_blank" rel="noreferrer">
+          <IconButton>
             <FaWikipediaW style={{ color: "white" }} />
-          </a>
-        </IconButton>
-        <IconButton>
-          <a href={item.rating?.pitchforkLink} target="_blank" rel="noreferrer">
+          </IconButton>
+        </a>
+        <a href={item.rating?.pitchforkLink} target="_blank" rel="noreferrer">
+          <IconButton title="review">
             <AiOutlineStar style={{ color: "gold" }} />
-          </a>
-        </IconButton>
+          </IconButton>
+        </a>
       </CardActions>
     </Card>
   );

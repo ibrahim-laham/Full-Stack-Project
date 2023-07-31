@@ -1,8 +1,10 @@
+import { useState } from "react";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import Fade from "@mui/material/Fade";
 import { BiSolidRightArrow } from "react-icons/bi";
 import { PiMusicNoteDuotone } from "react-icons/pi";
 
@@ -32,14 +34,14 @@ export default function AlbumSlider({ item }: Prop) {
               overflow: "hidden",
               textOverflow: "ellipsis",
               display: "flex",
-              maxWidth: "4%",
+              maxWidth: {xs: "20%", md: "10%", lg: "4%"},
             }
       }
     >
       <Button
         size="small"
         variant="contained"
-        sx={{ backgroundColor: "background.default" }}
+        sx={{ backgroundColor: "background.default", height: "100%" }}
         onClick={handleChange}
       >
         <BiSolidRightArrow />
@@ -49,11 +51,16 @@ export default function AlbumSlider({ item }: Prop) {
         orientation="horizontal"
         collapsedSize={0}
         sx={{ padding: "2vw" }}
+        timeout={200}
       >
-        <Typography variant="h4">
-          <PiMusicNoteDuotone /> About the Artist:{" "}
-        </Typography>
-        <Typography variant="body1">{item.artistInfo}</Typography>
+        <Fade in={checked} enter timeout={{ enter: 2500, exit: 0 }}>
+          <div>
+            <Typography variant="h4">
+              <PiMusicNoteDuotone /> About the Artist:{" "}
+            </Typography>
+            <Typography variant="body1">{item.artistInfo}</Typography>
+          </div>
+        </Fade>
       </Collapse>
     </Box>
   );

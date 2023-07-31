@@ -20,8 +20,10 @@ const cartSlice = createSlice({
   initialState: cartState,
   reducers: {
     addToCartList: (state, action: PayloadAction<Album>) => {
+      let isItemInWishList = false;
       state.cartList.map((item) => {
         if (item._id === action.payload._id) {
+          isItemInWishList = true;
           return (state.cartList = state.cartList.filter(
             (item) => item._id !== action.payload._id
           ));
@@ -29,7 +31,9 @@ const cartSlice = createSlice({
           return null;
         }
       });
-      state.cartList.push(action.payload);
+      if (!isItemInWishList) {
+        state.cartList.push(action.payload);
+      } 
     },
     removeFormCartList: (state, action: PayloadAction<Album>) => {
       state.cartList = state.cartList.filter(

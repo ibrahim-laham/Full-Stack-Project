@@ -28,7 +28,7 @@ export default function AlbumDetails() {
       sx={{
         display: "flex",
         justifyContent: "center",
-        minHeight: "93vh",
+        minHeight: "94vh",
         alignItems: "center",
         padding: "5%",
       }}
@@ -37,26 +37,24 @@ export default function AlbumDetails() {
         <Paper
           elevation={12}
           sx={{
-            minHeight: "60vh",
-            maxHeight: { xs: "auto", md: "75vh" },
+            flexGrow: 1,
             minWidth: "60vw",
             maxWidth: "75%",
             display: "flex",
           }}
           key={item._id}
         >
-          <Stack direction="row" sx={{ width: "100%" }}>
+          <Stack direction="row" sx={{ width: "100%",  minHeight: "60vh" }}>
             {" "}
-            <Grid container sx={{ height: "100%" }}>
-              <Grid item xs={12} lg={12} sx={{marginBottom: "auto"}}>
+            <Grid container  sx={{ minHeight: "100%" ,marginBottom: "auto"}}>
+              <Grid item xs={12} lg={12} sx={{minHeight: "80%"}}>
                 <AlbumDetailsCard item={item} />
               </Grid>
-              <Grid item xs={12} lg={12}>
-                
+              <Grid item xs={12} lg={12} sx={{ minHeight: "20%"}}>
                   <iframe
                     title="spotify "
                     style={{
-                      height: "100%",
+                      height: "30vh",
                       borderRadius: "12px",
                       border: "0px",
                     }}
