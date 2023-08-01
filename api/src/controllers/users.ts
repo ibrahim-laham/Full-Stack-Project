@@ -81,18 +81,34 @@ export const updateUser = async (
   next: NextFunction
 ) => {
   try {
+    const { firstName, lastName, email, password } = req.body;
     const userId = req.params.userId;
-    const updateFromUser = req.body;
-    const password = req.body.password;
+    type UpdateFromUser = {
+      firstName: string,
+      lastName: string,
+      email: string,
+      password: string,
+    }
+    let updateFromUser: UpdateFromUser = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password
+    };
 
     const salt = await bcrypt.genSalt(12);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const update = { ...updateFromUser, password: hashedPassword };
+    let hashedPassword= ""
+    
+    if (password) {
+       hashedPassword = await bcrypt.hash(password, salt);
+       updateFromUser = { ...updateFromUser, password: hashedPassword };
+    }
+    
 
-    const user = await usersServices.updateUser(userId, update);
+    const user = await usersServices.updateUser(userId, updateFromUser);
 
     res.status(200).json({
-      message: "updated user password",
+      message: "updated user information",
       user: user,
     });
   } catch (error) {

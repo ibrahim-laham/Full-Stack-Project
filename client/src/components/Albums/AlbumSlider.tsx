@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
 import Fade from "@mui/material/Fade";
 import { BiSolidRightArrow } from "react-icons/bi";
 import { PiMusicNoteDuotone } from "react-icons/pi";
+import Box from "@mui/material/Box";
 
 import { Album } from "../../types/type";
 
@@ -19,6 +19,8 @@ export default function AlbumSlider({ item }: Prop) {
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
+
+  
 
   return (
     <Box
@@ -34,7 +36,7 @@ export default function AlbumSlider({ item }: Prop) {
               overflow: "hidden",
               textOverflow: "ellipsis",
               display: "flex",
-              maxWidth: {xs: "20%", md: "10%", lg: "4%"},
+              maxWidth: { xs: "20%", md: "10%", lg: "4%" },
             }
       }
     >

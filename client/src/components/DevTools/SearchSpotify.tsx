@@ -71,9 +71,15 @@ export default function SearchSpotify() {
   };
 
   const addAlbumToDatabase = async () => {
-    const endpoint = "http://localhost:8000/products";
+    const endpoint = "https://full-stack-project-backend-e3xz.onrender.com/products";
+    const accessToken = localStorage.getItem("Access_token")
     await axios
-      .post(endpoint, album)
+      .post(endpoint, album, {
+        headers : {
+          "content-type": "application/json",
+          Authorization: `Bearer ${accessToken}`
+        },
+      })
       .then((res) => console.log(res.data))
       .catch((error) => console.log(error));
   };

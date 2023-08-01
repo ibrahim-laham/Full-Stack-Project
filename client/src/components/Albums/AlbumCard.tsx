@@ -71,8 +71,8 @@ export default function AlbumCard({ album }: Prop) {
         <Typography gutterBottom variant="body1" component="div">
           {album.artist}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          short description of the album
+        <Typography variant="body2" color="text.secondary" sx={{overflow: "hidden", whiteSpace: "nowrap",textOverflow: "ellipsis"}}>
+          {album.description}
         </Typography>
       </CardContent>
       <CardActions>

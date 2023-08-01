@@ -10,7 +10,11 @@ import { BsSpotify, BsYoutube } from "react-icons/bs";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { FaWikipediaW } from "react-icons/fa";
-import { AiOutlineStar } from "react-icons/ai";
+import { MdReviews } from "react-icons/md";
+import Rating from "@mui/material/Rating";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 
 import { Album } from "../../types/type";
 
@@ -44,53 +48,82 @@ export default function AlbumDetailsCard({ item }: Prop) {
     isInCartList ? (cartColor = "gold") : (cartColor = "white");
   }
   checkColor();
+
   return (
-    <Card sx={{ width: "100%", height: "100%" }}>
+    <Card sx={{ width: "100%", height: "100%", margin: "auto" }}>
       <CardMedia
         sx={{ minHeight: "30vh" }}
         image={item.image?.albumArt}
         title={item.title}
       />
-      <CardContent >
+      <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {item.title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography gutterBottom variant="body2" color="text.secondary">
           {item.description}
         </Typography>
+        <Stack direction="row" justifyContent="space-between">
+          <Typography variant="overline">
+            {" "}
+            total tracks:{" "}
+            <Box component="span" sx={{ color: "gold" }}>
+              {" "}
+              {item.totalTracks}{" "}
+            </Box>{" "}
+          </Typography>
+          <Typography variant="overline">
+            Release Date: <Box component="span" sx={{ color: "gold" }}>{item.releaseDate.slice(0, 10)}</Box>{" "}
+          </Typography>
+        </Stack>
       </CardContent>
       <CardActions
         sx={{
-          display: { xs: "flex" },
+          display: { xs: "flex", md: "flex" },
           flexDirection: { xs: "column", md: "row" },
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        <IconButton onClick={cartHandler}>
-          <AddShoppingCartIcon style={{ color: cartColor }} />
-        </IconButton>
-        <IconButton onClick={favoriteHandler}>
-          <FavoriteIcon style={{ color: favoriteColor }} />
-        </IconButton>
-        <a href={item.link?.spotify} target="_blank" rel="noreferrer">
-          <IconButton>
-            <BsSpotify style={{ color: "springgreen" }} />
+        <Box>
+          <IconButton onClick={cartHandler}>
+            <AddShoppingCartIcon style={{ color: cartColor }} />
           </IconButton>
-        </a>{" "}
-        <a href={item.link?.youtube} target="_blank" rel="noreferrer">
-          <IconButton>
-            <BsYoutube style={{ color: "red" }} />
+          <IconButton onClick={favoriteHandler}>
+            <FavoriteIcon style={{ color: favoriteColor }} />
           </IconButton>
-        </a>{" "}
-        <a href={item.link?.wikipedia} target="_blank" rel="noreferrer">
-          <IconButton>
-            <FaWikipediaW style={{ color: "white" }} />
-          </IconButton>
-        </a>
-        <a href={item.rating?.pitchforkLink} target="_blank" rel="noreferrer">
-          <IconButton title="review">
-            <AiOutlineStar style={{ color: "gold" }} />
-          </IconButton>
-        </a>
+          <a href={item.link?.spotify} target="_blank" rel="noreferrer">
+            <IconButton>
+              <BsSpotify style={{ color: "springgreen" }} />
+            </IconButton>
+          </a>{" "}
+          <a href={item.link?.youtube} target="_blank" rel="noreferrer">
+            <IconButton>
+              <BsYoutube style={{ color: "red" }} />
+            </IconButton>
+          </a>{" "}
+          <a href={item.link?.wikipedia} target="_blank" rel="noreferrer">
+            <IconButton>
+              <FaWikipediaW style={{ color: "white" }} />
+            </IconButton>
+          </a>
+          <a href={item.rating?.pitchforkLink} target="_blank" rel="noreferrer">
+            <IconButton title="review">
+              <MdReviews style={{ color: "gold" }} />
+            </IconButton>
+          </a>
+        </Box>
+        <Box>
+          <Rating
+            value={item.rating.rating}
+            precision={0.5}
+            icon={<FavoriteIcon fontSize="inherit" />}
+            emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+            max={10}
+            readOnly
+            sx={{ color: "goldRush.main" }}
+          />
+        </Box>
       </CardActions>
     </Card>
   );

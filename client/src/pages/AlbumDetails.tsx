@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../redux/store";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 
 import { getAlbumDetails } from "../redux/thunk/albums";
 import AlbumDetailsCard from "../components/Albums/AlbumDetailsCard";
@@ -44,7 +43,7 @@ export default function AlbumDetails() {
           }}
           key={item._id}
         >
-          <Stack direction="row" sx={{ width: "100%",  minHeight: "60vh" }}>
+          <Stack direction="row" sx={{ width: "100%",  minHeight: "60vh", maxHeight: {xs: "auto",md: "95vh" ,lg:"90vh" } }}>
             {" "}
             <Grid container  sx={{ minHeight: "100%" ,margin: "auto"}}>
               <Grid item xs={12} lg={12} sx={{minHeight: "80%"}}>
@@ -54,7 +53,7 @@ export default function AlbumDetails() {
                   <iframe
                     title="spotify "
                     style={{
-                      height: "30vh",
+                      height: "100%",
                       borderRadius: "12px",
                       border: "0px",
                     }}
