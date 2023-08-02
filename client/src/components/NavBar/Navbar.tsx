@@ -6,6 +6,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Switch from "@mui/material/Switch";
 import { styled } from "@mui/material/styles";
+import Button from "@mui/material/Button";
+import { MdFavorite } from "react-icons/md";
+import Typography from "@mui/material/Typography";
+import Badge from "@mui/material/Badge";
+import Box from "@mui/material/Box";
 
 import Logo from "./Logo";
 import MenuXs from "./MenuXs";
@@ -14,6 +19,8 @@ import NavItems from "./NavItems";
 import NavProfile from "./NavProfile";
 
 import { RootState } from "../../redux/store";
+import WishListDrawer from "./WishListDrawer";
+
 
 type PaletteMode = "light" | "dark";
 
@@ -36,7 +43,6 @@ export default function Navbar({ mode, setMode }: Prop) {
   const pages = [
     { name: "Home", path: "/" },
     { name: "Albums", path: "/albums" },
-    { name: "Wishlist", path: "/wishlist", badgeNumber: wishNumber },
     { name: "Cart", path: "/cart", badgeNumber: cartNumber },
     { name: "Contact", path: "/" },
     { name: "Sign in", path: "/signin" },
@@ -115,6 +121,21 @@ export default function Navbar({ mode, setMode }: Prop) {
     },
   }));
 
+  const [state, setState] = useState(false);
+
+  const toggleDrawer = (event: React.KeyboardEvent | React.MouseEvent) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      ((event as React.KeyboardEvent).key === "Tab" ||
+        (event as React.KeyboardEvent).key === "Shift")
+    ) {
+      return;
+    }
+
+    state ? setState(false) : setState(true);
+  };
+
   return (
     <AppBar
       position="static"
@@ -131,6 +152,21 @@ export default function Navbar({ mode, setMode }: Prop) {
           />
           <LogoXs />
           <NavItems handleCloseNavMenu={handleCloseNavMenu} pages={pages} />
+          <Badge badgeContent={wishNumber} color="secondary">
+            <Button
+              variant="text"
+              startIcon={<MdFavorite />}
+              sx={{
+                color: "white",
+                display: "flex",
+                fontWeight: "700",
+              }}
+              onClick={toggleDrawer}
+            >
+              <Typography variant="h6">wishList</Typography>
+            </Button>
+          </Badge>
+
           <MaterialUISwitch
             sx={{ m: 1 }}
             checked={mode === "light" ? false : true}
@@ -142,6 +178,8 @@ export default function Navbar({ mode, setMode }: Prop) {
             handleCloseUserMenu={handleCloseUserMenu}
             settings={settings}
           />
+
+         <Box sx={state? {display: "initial"}: {display: "none"}} ><WishListDrawer toggleDrawer={toggleDrawer} state={state} /></Box> 
         </Toolbar>
       </Container>
     </AppBar>

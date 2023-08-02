@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 
 import { RootState } from "../../redux/store";
 
+
 type Prop = {
   handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void;
   anchorElUser: null | HTMLElement;
@@ -24,6 +25,7 @@ export default function NavProfile({
   handleCloseUserMenu,
   settings,
 }: Prop) {
+
   const avatar = useSelector((state: RootState) => state.profile.userAvatar);
   return (
     <Box sx={{ flexGrow: 0 }}>
@@ -56,7 +58,9 @@ export default function NavProfile({
             to={setting.path}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <MenuItem onClick={handleCloseUserMenu}>
+            <MenuItem onClick={(event)=> {
+              handleCloseUserMenu(event);
+              }}>
               <Typography textAlign="center">{setting.name}</Typography>
             </MenuItem>
           </Link>

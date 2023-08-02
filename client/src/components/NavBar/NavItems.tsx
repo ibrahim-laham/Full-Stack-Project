@@ -9,7 +9,7 @@ import AlbumRoundedIcon from "@mui/icons-material/AlbumRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import CallRoundedIcon from "@mui/icons-material/CallRounded";
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
-import { MdFavorite } from "react-icons/md";
+
 import { BsFillCartFill } from "react-icons/bs";
 
 type Prop = {
@@ -19,7 +19,10 @@ type Prop = {
   }[];
 };
 
-export default function NavItems({ pages, handleCloseNavMenu }: Prop) {
+export default function NavItems({
+  pages,
+  handleCloseNavMenu,
+}: Prop) {
   return (
     <Box
       sx={{
@@ -36,7 +39,9 @@ export default function NavItems({ pages, handleCloseNavMenu }: Prop) {
         >
           <Badge badgeContent={page.badgeNumber} color="secondary">
             <Button
-              onClick={handleCloseNavMenu}
+              onClick={(event) => {
+                handleCloseNavMenu(event);
+              }}
               variant="text"
               sx={{
                 color: "white",
@@ -50,8 +55,6 @@ export default function NavItems({ pages, handleCloseNavMenu }: Prop) {
                   <HomeRoundedIcon />
                 ) : page.name === "Contact" ? (
                   <CallRoundedIcon />
-                ) : page.name === "Wishlist" ? (
-                  <MdFavorite />
                 ) : page.name === "Cart" ? (
                   <BsFillCartFill />
                 ) : page.name === "Sign in" ? (

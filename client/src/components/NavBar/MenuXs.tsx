@@ -53,7 +53,7 @@ export default function MenuXs({
       >
         {pages.map((page) => (
           <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-            <Link to={`${page.path}`}>
+            <Link style={{textDecoration: "none", color: "initial"}} to={`${page.path}`}>
             <Typography textAlign="center">{page.name}</Typography></Link>
           </MenuItem>
         ))}

@@ -9,7 +9,7 @@ const adminCheck = async (req: Request, res: Response, next: NextFunction) => {
   const userData = req.user as UserDocument;
   const userRole =  userData.role;
 
-  console.log( userRole, "user");
+  console.log( userData, "user");
   /* console.log(req, "request in middleware"); */
   if (userRole === "admin") {
     next();

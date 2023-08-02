@@ -24,7 +24,7 @@ export default function AlbumsForm({userInput,setUserInput}:Prop) {
   
   
   return (
-    <Box component="form" noValidate autoComplete="off" sx={{display: "flex", alignItems: "center", justifyContent: "center", width: "100%"}} >
+    <Box component="form" noValidate autoComplete="off" sx={{display: "flex", alignItems: "center", justifyContent: "center",gap: "5%"}} >
       <TextField
         id="filled-search"
         label="Search Album"
@@ -32,7 +32,7 @@ export default function AlbumsForm({userInput,setUserInput}:Prop) {
         value={userInput}
         variant="filled"
         onChange={searchChangeHandler}
-        sx={{marginRight: "5%"}}
+        sx={{margin: "auto"}}
         autoFocus={true}
       />
       <Button onClick={searchClickHandler} size="large" variant="contained">Search</Button>

@@ -86,7 +86,7 @@ export default function AlbumsPage() {
         }}
       >
         <Stack justifyContent="center" alignItems="center" spacing="4">
-          <Stack direction="row" sx={{ width: "25%" }}>
+          <Stack direction="row" sx={{ minWidth: "25%" }}>
             <AlbumsForm userInput={userInput} setUserInput={setUserInput} />
             <Button
               onClick={ToggleOrder}
