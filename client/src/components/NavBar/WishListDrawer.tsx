@@ -1,6 +1,6 @@
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import React from "react";
-import WishListPage from "../../pages/WishListPage";
+import WishList from "../WishList/WishList";
 
 type Prop = {
   toggleDrawer: (event: React.KeyboardEvent | React.MouseEvent) => void;
@@ -17,7 +17,7 @@ export default function WishListDrawer({ toggleDrawer, state }: Prop) {
         onOpen={toggleDrawer}
         sx={{ width: "30vw" }}
       >
-        <WishListPage />
+        <WishList />
       </SwipeableDrawer>
     </div>
   );

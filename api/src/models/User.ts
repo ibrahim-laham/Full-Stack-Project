@@ -8,10 +8,7 @@ export type UserDocument = Document & {
   role: "user" | "admin";
 };
 
-/* export enum Role {
-  user = "user",
-  admin = "admin",
-} */
+
 
 const userSchema = new mongoose.Schema({
   firstName: {

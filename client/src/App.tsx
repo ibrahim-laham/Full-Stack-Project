@@ -12,7 +12,7 @@ import RegisterPage from "./pages/RegisterPage";
 import SigninPage from "./pages/SigninPage";
 import ProfilePage from "./pages/ProfilePage";
 import LogoutPage from "./pages/LogoutPage";
-import WishListPage from "./pages/WishListPage";
+import WishListPage from "./components/WishList/WishList";
 import CartPage from "./pages/CartPage";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -142,7 +142,6 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/logout" element={<LogoutPage />} />
-              <Route path="/wishlist" element={<WishListPage />} />
               <Route path="/cart" element={<CartPage/>} />
             </Routes>
           </Stack>

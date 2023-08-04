@@ -34,7 +34,7 @@ const albumsState: AlbumsState = {
     },
   ],
   ordering: "asc",
-  loading: true,
+  loading: false,
 };
 
 const albumsSlice = createSlice({

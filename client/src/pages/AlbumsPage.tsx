@@ -11,8 +11,7 @@ import Stack from "@mui/material/Stack";
 import { BiSolidUpArrowAlt, BiSolidDownArrowAlt } from "react-icons/bi";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import LinearProgress from "@mui/material/LinearProgress";
-import Container from "@mui/material/Container";
+import Skeleton from "@mui/material/Skeleton";
 
 import { albumsActions } from "../redux/slices/albums";
 
@@ -25,7 +24,7 @@ export default function AlbumsPage() {
 
   const appDispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    appDispatch(getAlbumsData())
+    appDispatch(getAlbumsData());
   }, [appDispatch, userInput]);
 
   function ToggleOrder() {
@@ -35,25 +34,23 @@ export default function AlbumsPage() {
     dispatch(albumsActions.sortAlbums());
   }
 
-  const [progress, setProgress] = useState(0);
+  let skeletonArray: JSX.Element[] = [];
+  for (let i = 0; i < 30; i++) {
+    skeletonArray.push(
+      <Grid xs={12} sm={6} md={3} lg={2} justifyContent="center" key={i}>
+        <Stack spacing={1}>
+        <Skeleton variant="rounded" width={"100%"} height={120} />
+          <Skeleton variant="text" width={"100%"} sx={{ fontSize: "1rem" }} />
+          <Skeleton variant="text" width={"100%"} sx={{ fontSize: "1rem" }} />
+          <Skeleton variant="rectangular" width={"100%"} height={60} />
+        </Stack>
+      </Grid>
+    );
+  }
+  console.log(skeletonArray);
+  console.log(loading, "load");
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        if (oldProgress === 100) {
-          return 0;
-        }
-        const diff = Math.random() * 10;
-        return Math.min(oldProgress + diff, 100);
-      });
-    }, 500);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-  if (loading) {
+  if (!loading) {
     return (
       <Paper
         elevation={1}
@@ -65,12 +62,10 @@ export default function AlbumsPage() {
             "linear-gradient( 179deg,  rgba(0,0,0,0.2) 75%, rgba(135, 7, 7,0.55) 103% )",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
-        <Container  >
-          <LinearProgress variant="determinate" value={progress} sx={{backgroundColor: "goldRush.main"}} />
-        </Container>
+        <Grid container spacing={5} sx={{ width: "100%" }}> {skeletonArray} </Grid>
       </Paper>
     );
   } else {
