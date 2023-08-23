@@ -61,7 +61,7 @@ const albumsSlice = createSlice({
         : (state.albums = state.albums.sort((a, b) => b.price - a.price));
     },
     isLoading: (state) => {
-      state.loading = false
+      state.loading = true
     }
   },
 });
