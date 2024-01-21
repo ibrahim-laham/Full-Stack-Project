@@ -28,8 +28,8 @@ app.get("/", function(req: Request, res: Response)
   )}
 )
 
-app.use(Express.json());
-app.use(cors());
+// app.use(Express.json());
+// app.use(cors());
 app.use(passport.initialize());
 passport.use(jwtStrategy);
 
