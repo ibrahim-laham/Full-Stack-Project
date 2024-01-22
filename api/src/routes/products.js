@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var passport_1 = require("passport");
+var products_1 = require("../controllers/products");
+var adminCheck_1 = require("../middlewares/adminCheck");
+var router = (0, express_1.Router)();
+router.get("/", products_1.getProduct);
+router.get("/:id", products_1.getProductById);
+router.post("/", passport_1.default.authenticate("jwt", { session: false }), adminCheck_1.default, products_1.createProduct);
+router.put("/:id", passport_1.default.authenticate("jwt", { session: false }), adminCheck_1.default, products_1.updateProduct);
+router.delete("/:id", passport_1.default.authenticate("jwt", { session: false }), adminCheck_1.default, products_1.deleteProduct);
+exports.default = router;

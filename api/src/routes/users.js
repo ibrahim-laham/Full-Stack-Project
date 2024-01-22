@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var passport_1 = require("passport");
+var users_1 = require("../controllers/users");
+var adminCheck_1 = require("../middlewares/adminCheck");
+var router = (0, express_1.Router)();
+router.post("/", users_1.createUser);
+router.post("/login", users_1.loginWithPassword);
+router.put("/:userId", passport_1.default.authenticate("jwt", { session: false }), users_1.updateUser);
+router.get("/:id", passport_1.default.authenticate("jwt", { session: false }), users_1.getUserById);
+router.get("/", passport_1.default.authenticate("jwt", { session: false }), adminCheck_1.default, users_1.getAllUsers);
+router.put("/:userId/make-admin", passport_1.default.authenticate("jwt", { session: false }), adminCheck_1.default, users_1.makeAdmin);
+exports.default = router;
